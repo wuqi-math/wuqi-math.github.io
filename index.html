@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The personal mathematics homepage of qiwumath, with graph theory topics, publications, and notes.">
+  <meta name="theme-color" content="#0c1729">
+  <title>qiwumath | Mathematics</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="frame header-inner">
+      <a class="brand" href="#top" aria-label="qiwumath home">
+        <span class="brand-mark" aria-hidden="true">q</span>
+        qiwumath
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#notes">Notes</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="page-title">
+    <div class="frame hero-inner">
+      <p class="eyebrow">Personal mathematics homepage</p>
+      <h1 id="page-title">qiwumath</h1>
+      <p class="hero-description">Graph theory, publications, and mathematical notes.</p>
+    </div>
+  </section>
+
+  <div class="frame page-layout">
+    <main id="main" tabindex="-1">
+      <section class="panel" id="research" aria-labelledby="research-title">
+        <h2 id="research-title">Research</h2>
+        <p class="section-intro">Three topics in graph theory to explore.</p>
+        <ul class="topics">
+          <li>
+            <h3>Graph Structure</h3>
+            <p>Paths, cycles, and conditions that force a graph to contain them.</p>
+          </li>
+          <li>
+            <h3>Spectral Graph Theory</h3>
+            <p>How the eigenvalues of graph matrices reflect combinatorial properties.</p>
+          </li>
+          <li>
+            <h3>Extremal Graph Theory</h3>
+            <p>How many edges a graph can have while avoiding a given subgraph.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel" id="publications" aria-labelledby="publications-title">
+        <h2 id="publications-title">Publications</h2>
+        <p class="section-intro">The publication list is forthcoming.</p>
+      </section>
+
+      <section class="panel" id="notes" aria-labelledby="notes-title">
+        <h2 id="notes-title">Mathematical Notes</h2>
+        <details>
+          <summary>The handshaking lemma</summary>
+          <div class="note-body">
+            <p>In a finite undirected graph, each edge has two ends. Counting these ends by vertex gives the sum of all vertex degrees. Counting them by edge gives twice the number of edges.</p>
+            <p>That sum is even. The even degrees contribute an even amount, so the odd degrees must also sum to an even number. Consequently, there are an even number of odd-degree vertices.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Counting walks with an adjacency matrix</summary>
+          <div class="note-body">
+            <p>Let <i>A</i> be the adjacency matrix of a finite simple graph. The entry at row <i>u</i>, column <i>v</i> of <i>A</i><sup><i>k</i></sup> counts the walks of length <i>k</i> from <i>u</i> to <i>v</i>.</p>
+            <p>For <i>k</i> = 1, this is the definition of <i>A</i>. To get a walk of length <i>k</i> + 1, take a walk of length <i>k</i> and append one edge. The sum in matrix multiplication counts exactly these choices.</p>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <aside class="profile panel" id="contact" aria-labelledby="contact-title">
+      <div class="profile-art" aria-hidden="true">
+        <span class="profile-monogram">q</span>
+      </div>
+      <div class="profile-content">
+        <h2 id="contact-title">Contact</h2>
+        <a class="profile-link" href="https://github.com/wuqi-math">GitHub <span>@wuqi-math</span></a>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="frame site-footer">
+    <span>qiwumath</span>
+    <a href="#top">Back to top</a>
+  </footer>
+</body>
+</html>
