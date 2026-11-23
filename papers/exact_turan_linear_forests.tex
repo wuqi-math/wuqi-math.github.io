@@ -1,0 +1,2785 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype,array}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+ pdftitle={Exact Turan numbers of linear forests},
+ pdfauthor={Qi Wu, Yong Lu},
+ pdfsubject={Extremal graph theory},
+ pdfkeywords={Turan number, linear forest, disjoint paths, Yuan-Zhang conjecture, Hamiltonian path}
+}
+\allowdisplaybreaks[2]
+\setlength{\abovedisplayskip}{7pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{7pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{4pt plus 2pt minus 1pt}
+\setlength{\belowdisplayshortskip}{4pt plus 2pt minus 1pt}
+\newtheoremstyle{compactplain}{5pt}{5pt}{\itshape}{}%
+ {\bfseries}{.}{.5em}{}
+\theoremstyle{compactplain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}{Conjecture}[section]
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\ex}{\operatorname{ex}}
+
+\title{Exact Tur\'an numbers of linear forests\thanks{This work is supported by the National Natural Science Foundation of China (Nos.\ 12371348 and 12201258) and the High-Quality Science and Technology Cultivation Project of Jiangsu Normal University (No.\ JSNUGZL2026069).}}
+\author{Qi Wu, Yong Lu\thanks{Corresponding author.}\\
+School of Mathematics and Statistics, Jiangsu Normal University,\\
+Xuzhou, Jiangsu 221116, People's Republic of China\\
+Emails: \texttt{wuqimath@163.com, luyong@jsnu.edu.cn}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $H=\bigcup_{i=1}^s P_{k_i}$ be a linear forest with
+$k_1\ge\cdots\ge k_s\ge2$, and set $m=\sum_{i=1}^s k_i$,
+$a=\sum_{i=1}^s\lfloor k_i/2\rfloor$, and $S_j=\sum_{i=1}^j k_i$ for
+$1\le j\le s$. Let $\varepsilon=1$ if every $k_i$ is odd, and
+$\varepsilon=0$ otherwise. For integers $S\ge k\ge2$ and $n\ge0$, define
+\[
+ \Pi(n;S,k)=
+ \begin{cases}
+  \binom{n}{2}, & 0\le n<S-1,\\[2pt]
+  \displaystyle\binom{S-1}{2}+u\binom{k-1}{2}+\binom{v}{2},
+   & n=S-1+u(k-1)+v,\quad u\ge0,\quad 0\le v<k-1.
+ \end{cases}
+\]
+Yuan and Zhang conjectured that whenever $k_s\ge3$, $k_1>3$, and
+$n\ge m$,
+\[
+ \ex(n,H)=\max\left\{\Pi(n;S_j,k_j):1\le j\le s;\,
+ (a-1)n-\binom{a}{2}+\varepsilon\right\}.
+\]
+In this paper we confirm this conjecture and show that the same formula
+holds for every linear forest without isolated vertices that is not a
+union of copies of $P_3$, thereby allowing components of order two as
+well. Combined with the known exact formula for $tP_3$ and the trivial
+identity $\ex(n,H)=\binom{n}{2}$ for $n<m$, this determines $\ex(n,H)$
+for every linear forest without isolated vertices and all $n\ge0$.
+\end{abstract}
+
+\paragraph{Keywords:} Tur\'an number; linear forest; disjoint paths;
+Yuan--Zhang conjecture; Hamiltonian path.
+
+\paragraph{2020 Mathematics Subject Classification:} 05C35, 05C38.
+
+\section{Introduction}\label{sec:intro}
+
+All graphs considered in this paper are finite, simple, and undirected.
+For a graph $H$, we say that a graph $G$ is \emph{$H$-free} if it
+contains no subgraph isomorphic to $H$. The \emph{Tur\'an number}
+$\ex(n,H)$ is the maximum number of edges in an $H$-free graph on $n$
+vertices. We refer to the number of vertices of a graph $G$ as its
+\emph{order}, denoted by $|G|$, and write $P_k$ for the path on $k$
+vertices. Similarly, $K_q$ and $I_q$ denote the complete graph and the
+edgeless graph on $q$ vertices, respectively, with the convention that
+both are empty when $q=0$.
+
+The Tur\'an problem for paths is a cornerstone of extremal graph theory.
+Erd\H{o}s and Gallai~\cite{EG} established the classic linear upper bound
+$\ex(n,P_k)\le\frac{k-2}{2}n$, and the exact value for all $n$ was later
+determined independently by Faudree and Schelp~\cite{FS} and by
+Kopylov~\cite{Kopylov}: writing $n=u(k-1)+v$ with $0\le v<k-1$, one has
+$\ex(n,P_k)=u\binom{k-1}{2}+\binom{v}{2}$, attained by the disjoint
+union of $u$ copies of $K_{k-1}$ and one copy of $K_v$.
+
+A \emph{linear forest} is a graph whose connected components are paths.
+For graphs $G$ and $H$, let $G\cup H$ denote their disjoint union, and
+let $tG$ denote the disjoint union of $t$ copies of $G$ for any
+nonnegative integer $t$. The Tur\'an problem for linear forests has
+attracted considerable attention since the single-path case was settled.
+Bushaw and Kettle~\cite{BushawKettle} determined $\ex(n,tP_k)$ for
+sufficiently large $n$, and Lidick\'y, Liu, and Palmer~\cite{LLP}
+extended their asymptotic result to arbitrary linear forests.
+
+To describe the extremal constructions, recall that a \emph{matching} is
+a set of pairwise vertex-disjoint edges, and $\nu(G)$ denotes the maximum
+size of a matching in $G$. A set of pairwise nonadjacent vertices is
+called \emph{independent}. The \emph{join} $G\vee H$ of two graphs is
+obtained from $G\cup H$ by adding all edges between $V(G)$ and $V(H)$. We
+call a path \emph{odd} or \emph{even} according to the parity of its
+order. When $H$ is a linear forest without isolated vertices that is not
+a union of copies of $P_3$, the large-$n$ extremal graph is
+$K_{\nu(H)-1}\vee I_{n-\nu(H)+1}$, with one additional edge inside the
+independent set when every component of $H$ is odd. The remaining
+exceptional family $tP_3$ was solved for all $n$ independently by Campos
+and Lopes~\cite{CL} and by Yuan and Zhang~\cite{YZtriples}, with the
+latter authors also characterizing all extremal graphs.
+
+For general linear forests at all values of $n$, Yuan and
+Zhang~\cite{YZ} formulated an exact conjecture for
+$H=\bigcup_{i=1}^s P_{k_i}$ with $k_1\ge\cdots\ge k_s\ge3$ and $k_1>3$.
+They verified their formula for all $n$ whenever at most one component of
+$H$ is odd, and characterized all extremal graphs when every component is
+even. Subsequently, several specific families were settled for all $n$,
+including $2P_5$~\cite{BielakKieliszek}, $2P_7$~\cite{LanQinShi},
+$3P_5$~\cite{FengHu}, $2P_9$~\cite{ZhangWang}, and
+$P_9\cup P_7$~\cite{FangYou}. Deng, Hou, and Zeng~\cite{DHZ} resolved
+further three-path cases such as $3P_7$ and $2P_3\cup P_{2\ell+1}$, while
+Lai, Ma, and Yan~\cite{LMY} settled linear forests whose components all
+have order two or three. More recently, Dong, Ning, Yuan, and
+Zhang~\cite{DNYZ} solved the remaining case of two odd paths, completing
+the exact determination of $\ex(n,P_{k_1}\cup P_{k_2})$ for all
+$k_1,k_2$. In a related direction, Chen, Yang, Yuan, and
+Zhang~\cite{CYYZ} determined the maximum number of $r$-cliques in graphs
+avoiding an even linear forest, and Zhang, Zhao, and Lu~\cite{ZZL}
+studied Tur\'an problems forbidding both a fixed nonbipartite graph and a
+linear forest.
+
+Our proof also relies on degree-sum and dominating-path criteria for
+spanning linear forests, or \emph{path factors}, developed by
+Johansson~\cite{Johansson}, Chen, Tian, and Wei~\cite{CTW}, and Chiba and
+Tsugaki~\cite{ChibaTsugaki}. What makes the all-$n$ problem challenging
+is that different extremal constructions compete across different ranges
+of $n$: disjoint unions of cliques dominate for small and intermediate
+orders, whereas a join graph takes over once $n$ is large, with an extra
+edge available inside the independent set in the all-odd case. Moreover,
+when passing from connected graphs to general graphs, one must control
+how components of $H$ can be distributed across different connected
+components of $G$.
+
+For integers $S\ge k\ge2$ and $n\ge0$, set
+\begin{equation}\label{eq:prefix}
+ \Pi(n;S,k)=
+ \begin{cases}
+  \binom{n}{2}, & 0\le n<S-1,\\[2pt]
+  \displaystyle\binom{S-1}{2}+u\binom{k-1}{2}+\binom{v}{2},
+   & n=S-1+u(k-1)+v,\quad u\ge0,\quad 0\le v<k-1.
+ \end{cases}
+\end{equation}
+Note that the two expressions agree at $n=S-1$, and that
+$\Pi(n;S,2)=\binom{S-1}{2}$ for all $n\ge S-1$. We also write
+$J_a(n)=(a-1)n-\binom{a}{2}$ and
+$B_m(n)=\binom{m-1}{2}+\lfloor(n-m+1)/2\rfloor$.
+
+Given $H=\bigcup_{i=1}^s P_{k_i}$ with $k_1\ge\cdots\ge k_s\ge2$, put
+$m=\sum_{i=1}^s k_i$, $a=\sum_{i=1}^s\lfloor k_i/2\rfloor=\nu(H)$, and
+$S_j=\sum_{i=1}^j k_i$ for $1\le j\le s$. For each $j$, the quantity
+$\Pi(n;S_j,k_j)$ is the edge count of a clique of order $S_j-1$ together
+with a $P_{k_j}$-free disjoint union of cliques, while $J_a(n)$ is the
+edge count of $K_{a-1}\vee I_{n-a+1}$ (with one extra edge in the
+independent set when every $k_i$ is odd).
+
+\begin{conjecture}[Yuan and Zhang~\cite{YZ}]
+Let $H=\bigcup_{i=1}^s P_{k_i}$ with $k_1\ge\cdots\ge k_s\ge3$ and
+$k_1>3$. Put $m=\sum_{i=1}^s k_i$,
+$a=\sum_{i=1}^s\lfloor k_i/2\rfloor$, and $S_j=\sum_{i=1}^j k_i$. Let
+$\varepsilon=1$ if every $k_i$ is odd, and $\varepsilon=0$ otherwise.
+Then, for every $n\ge m$,
+\begin{equation}\label{eq:formula}
+ \ex(n,H)=\max\bigl\{\Pi(n;S_j,k_j):1\le j\le s;\,
+ J_a(n)+\varepsilon\bigr\}.
+\end{equation}
+\end{conjecture}
+
+Our main theorem settles this conjecture in full and extends
+\eqref{eq:formula} to allow $P_2$ components. For completeness, we
+include the known matching and $tP_3$ cases in the statement.
+
+\begin{theorem}\label{thm:main}
+Let $H=\bigcup_{i=1}^s P_{k_i}$ with $k_1\ge\cdots\ge k_s\ge2$. Put
+$m=\sum_{i=1}^s k_i$, $a=\sum_{i=1}^s\lfloor k_i/2\rfloor$, and
+$S_j=\sum_{i=1}^j k_i$. Let $\varepsilon=1$ if every $k_i$ is odd, and
+$\varepsilon=0$ otherwise. If $H$ is not a union of copies of $P_3$, then
+\eqref{eq:formula} holds for every $n\ge m$. If $H=tP_3$ with $t\ge1$,
+then for every $n\ge3t$,
+\begin{equation}\label{eq:triples}
+ \ex(n,tP_3)=\max\left\{
+ \binom{3t-1}{2}+\left\lfloor\frac{n-3t+1}{2}\right\rfloor,\,
+ (t-1)n-\binom{t}{2}+\left\lfloor\frac{n-t+1}{2}\right\rfloor
+ \right\}.
+\end{equation}
+Finally, $\ex(n,H)=\binom{n}{2}$ whenever $0\le n<m$.
+\end{theorem}
+
+Formula~\eqref{eq:triples} was established independently by Campos and
+Lopes~\cite{CL} and by Yuan and Zhang~\cite[Theorem~1.6]{YZtriples}; the
+difference between its second and first terms is $(t-1)(n-5t+1)$, so the
+maximum agrees with the piecewise expression in~\cite{YZtriples}. When
+$H=P_2$, we have $\ex(n,P_2)=0$ for $n\ge2$, and general matchings
+$tP_2$ are covered by the Erd\H{o}s--Gallai theorem~\cite{EG}. We remark
+that Yuan and Zhang~\cite{YZ} also asked for a full characterization of
+the extremal graphs; here we determine the exact Tur\'an numbers and
+verify the lower-bound constructions below.
+
+\paragraph{Lower bounds.}
+Fix $j\in\{1,\ldots,s\}$ and $n\ge m$, and consider the graph
+$K_{S_j-1}\cup uK_{k_j-1}\cup K_v$, where $u$ and $v$ are given by
+\eqref{eq:prefix}. Every component among the first $j$ paths of $H$ has
+order at least $k_j$, so any copy of $H$ would have to place all $j$ of
+them inside the clique $K_{S_j-1}$, which is impossible since they need
+$S_j$ vertices.
+
+Next, recall that a \emph{vertex cover} is a vertex set meeting every
+edge of a graph. The join $K_{a-1}\vee I_{n-a+1}$ has $J_a(n)$ edges and
+a vertex cover of size $a-1$, whereas every vertex cover of $H$ has size
+at least $\nu(H)=a$; so this join is $H$-free. Suppose now that every
+component of $H$ is odd, and add a single edge inside $I_{n-a+1}$. Any
+odd path $P_{2b+1}$ using $c$ vertices of $K_{a-1}$ breaks into at most
+$c+1$ segments outside $K_{a-1}$, at most one of which can have two
+vertices (using the added edge). Its order is therefore at most $2c+2$,
+which forces $c\ge b$. Summing over all components of $H$ shows that any
+copy of $H$ would require at least $a$ vertices of $K_{a-1}$, a
+contradiction.
+
+For $tP_3$, the two extremal graphs $K_{3t-1}\cup M_{n-3t+1}$ and
+$K_{t-1}\vee M_{n-t+1}$ (where $M_q$ consists of a matching of size
+$\lfloor q/2\rfloor$ plus an isolated vertex when $q$ is odd) are easily
+seen to be $tP_3$-free.
+
+Isolated vertices can be accommodated immediately.
+
+\begin{corollary}
+Let $F=H\cup zP_1$, where $z\ge0$ and $H$ is a linear forest with at
+least one edge and no isolated vertices. Then
+\[
+ \ex(n,F)=
+ \begin{cases}
+  \binom{n}{2}, & n<|F|,\\
+  \ex(n,H), & n\ge|F|,
+ \end{cases}
+\]
+where $\ex(n,H)$ is given by Theorem~\ref{thm:main}.
+\end{corollary}
+\begin{proof}
+For $n<|F|$ the complete graph $K_n$ is $F$-free. If $n\ge|H|+z$, then
+any copy of $H$ leaves at least $z$ unused vertices that can serve as the
+isolated components of $F$, so a graph on $n$ vertices is $F$-free if
+and only if it is $H$-free.
+\end{proof}
+
+If a linear forest consists solely of isolated vertices, then no graph of
+order at least $|F|$ avoids it. From now on we assume that every
+forbidden linear forest has at least one edge.
+
+The rest of the paper is organized as follows. Section~\ref{sec:prelim}
+gathers the preliminary tools (the connected path bound of
+Balister, Gy\H{o}ri, Lehel, and Schelp, path-factor criteria, and
+Hamiltonian-path closure) and resolves the connected case when $H$ has at
+most two odd components. Section~\ref{sec:coretools} develops the
+$a$-core decomposition, an ordered odd-path deletion lemma, and edge
+estimates for the core and residual components. In
+Section~\ref{sec:connected} we combine a P\'osa-type structural analysis
+with Hall's theorem to complete the proof for connected graphs. Finally,
+Section~\ref{sec:main} extends the connected bound to arbitrary graphs
+via a component-allocation inequality, completing the proof of
+Theorem~\ref{thm:main}.
+
+\section{Preliminary lemmas and the first connected cases}\label{sec:prelim}
+
+For a graph $G$, we write $V(G)$ and $E(G)$ for its vertex and edge
+sets, and $e(G)=|E(G)|$. Set $L_q(n)=qn-\binom{q+1}{2}$, so that
+$J_a(n)=L_{a-1}(n)$. For $v\in V(G)$, let $N_G(v)$ denote the
+\emph{neighborhood} of $v$ and put $d_G(v)=|N_G(v)|$. When
+$X\subseteq V(G)$ (or $X$ is an induced subgraph of $G$), we write
+$N_X(v)=N_G(v)\cap X$ and $d_X(v)=|N_X(v)|$, dropping the subscript when
+the ambient graph is clear. We denote by $G[X]$ the subgraph induced by
+$X$ and set $G-X=G[V(G)\setminus X]$; for a subgraph $Q$ we write
+$G-Q=G-V(Q)$, and for a single vertex $v$ we abbreviate $G-\{v\}$ to
+$G-v$. We use $\dot\cup$ to emphasize that a union of sets or graphs is
+disjoint.
+
+By the theorem of Faudree and Schelp~\cite{FS} (see also
+\cite[Theorem~1.2]{BGLS}), if $n=u(k-1)+v$ with $0\le v<k-1$ and
+$k\ge3$, then $\ex(n,P_k)=u\binom{k-1}{2}+\binom{v}{2}$; in particular,
+$\ex(n,P_k)=\binom{n}{2}$ for $n<k$. Balister, Gy\H{o}ri, Lehel, and
+Schelp~\cite[Theorem~1.3]{BGLS} proved the following connected
+counterpart: if $X$ is a connected $P_{k+1}$-free graph of order
+$x>k\ge3$, then
+\begin{equation}\label{eq:bgls}
+ e(X)\le\max\left\{
+ \binom{k-1}{2}+x-k+1,\quad
+ \binom{k-b}{2}+b(x-k+b)\right\},
+ \qquad b=\left\lfloor\frac{k-1}{2}\right\rfloor.
+\end{equation}
+Moreover, equality holds only when
+$X\cong K_s\vee\bigl(K_{k-2s}\mathbin{\dot\cup}I_{x-k+s}\bigr)$ for some
+$s\in\{1,b\}$ (these two graphs and bounds coincide for $k\in\{3,4\}$).
+
+For a noncomplete graph $X$, define
+$\sigma_2(X)=\min\{d_X(u)+d_X(v):uv\notin E(X)\}$, and set
+$\sigma_2(X)=\infty$ if $X$ is complete. We will use the following
+consequence of the path-factor theorem of Chen, Tian, and Wei~\cite{CTW}
+(see also Magnant and Ozeki~\cite[Theorem~1.2]{MO}).
+
+\begin{theorem}\label{thm:ctw}
+Let $t\ge2$, let $a_1,\ldots,a_t\ge2$, and put $n=\sum_{i=1}^t a_i$. Let
+$\lambda_{\rm e}$ be the number of even integers among
+$a_1,\ldots,a_t$. If a graph $X$ of order $n$ satisfies
+$\sigma_2(X)\ge n-t+\lambda_{\rm e}-2$, then $X$ contains a spanning
+path factor with component orders $a_1,\ldots,a_t$.
+\end{theorem}
+
+We repeatedly use a simple convexity observation: if
+$E(x)=\max\{C,qx-B\}$ with $q>0$ and $x_0=(C+B)/q$, then any linear
+function whose slope lies in $[0,q]$ and whose value at $x_0$ is less
+than $C$ stays strictly below $E(x)$ for all $x$ (compare with $C$ for
+$x\le x_0$ and with $qx-B$ for $x\ge x_0$).
+
+A path $P$ in a graph is \emph{$d$-dominating} if every vertex outside
+$P$ has at least $d$ neighbors on $P$. Chiba and
+Tsugaki~\cite[Lemma~2.2]{ChibaTsugaki} recorded the dominating-path
+version of Johansson's path-factor theorem~\cite{Johansson}. The next
+lemma lowers that degree threshold by one in the specific configuration
+needed here.
+
+\begin{lemma}\label{lem:path-completion}
+Let $F$ be a linear forest with exactly two odd components (each of
+order at least three) and at least one even component, and put
+$|F|=2a+2$. If $P=v_1\cdots v_{2a+1}$ is a path and $z\notin V(P)$
+satisfies $d_P(z)\ge a-1$, then $P\cup\{z\}$ contains a spanning copy of
+$F$.
+\end{lemma}
+\begin{proof}
+Merging all even components of $F$ into a single path of order $2c$, we
+write the two odd component orders as $2b+1$ and $2d+1$; it suffices to
+find a spanning copy of $P_{2c}\cup P_{2b+1}\cup P_{2d+1}$, since
+$P_{2c}$ can then be split into the required even components. Here
+$a=b+c+d$ with $b,c,d\ge1$. Because exactly one of the three target
+paths is even, Johansson's dominating-path threshold~\cite[Lemma~2.2]{ChibaTsugaki}
+is $a$, which handles $d_P(z)\ge a$. We may therefore assume that
+$d_P(z)=a-1$.
+
+Write $N=\{i:zv_i\in E\}$, so $|N|=a-1$, and suppose for a contradiction
+that no such spanning factor exists. Fix an ordering
+$\ell_1,\ell_2,\ell_3$ of the three path orders, and set $S_0=0$ and
+$S_i=\sum_{j\le i}\ell_j$. Clearly $N$ cannot contain two consecutive
+indices, as $z$ could otherwise be inserted into $P$ to form a spanning
+path. Likewise, if $S_{i-1}+1\in N$ or $S_i-1\in N$, then $z$ together
+with $v_{S_{i-1}+1}\cdots v_{S_i-1}$ forms a path of order $\ell_i$
+while the remaining two intervals supply the other two components. Thus
+$N$ has no consecutive elements and avoids $S_{i-1}+1$ and $S_i-1$ for
+every $i\in\{1,2,3\}$.
+
+The only available indices are $S_1,S_2$ and the three intervals
+$I_i=\{S_{i-1}+2,\ldots,S_i-2\}$. For the even path, the corresponding
+interval is empty when $c=1$, and when $c\ge2$ it has $2c-3$ positions,
+allowing at most $c-1$ nonconsecutive elements (with a unique extremal
+set); in either case it contributes at most $c-1$ to $|N|$. Similarly,
+the two odd intervals contribute at most $b-1$ and $d-1$, respectively.
+This yields $|N|\le2+(c-1)+(b-1)+(d-1)=a-1$. Equality must therefore
+hold, meaning that $S_1,S_2\in N$ and every interval $I_i$ attains its
+maximum.
+
+Placing the even path first forces $2,4,\ldots,2c\in N$ (which is simply
+$S_1=2$ when $c=1$), while placing it last forces
+$2a-2c+2,2a-2c+4,\ldots,2a\in N$. In particular, $\min N=2$ and
+$\max N=2a$. On the other hand, placing $P_{2b+1}$ first excludes both
+$2b$ and $2b+2$ from $N$.
+
+Listing $N=\{s_1<\cdots<s_{a-1}\}$, we have $s_{i+1}-s_i\ge2$ for all
+$i$ and $\sum_{i=1}^{a-2}(s_{i+1}-s_i-2)=2$, so either one gap equals
+$4$ or two gaps equal $3$. A single gap of $4$ would force $N$ to
+contain every even index in $[2,2a]$ except one, contradicting that both
+$2b$ and $2b+2$ are absent. Thus there are two gaps of size $3$. Let the
+first run from $2h$ to $2h+3$. Since $2,4,\ldots,2c\in N$, we have
+$h\ge c$, and because all even positions up to $2h$ lie in $N$, we have
+$x=2h-2c+2\in N$ as well as $y=2h+3\in N$. Now $v_{x+1}\cdots v_{y-1}$
+is a path of order $2c$, and the remaining vertices form the path
+$v_1\cdots v_x z v_y\cdots v_{2a+1}$ of order $2b+2d+2$, which splits
+into $P_{2b+1}$ and $P_{2d+1}$, a contradiction.
+\end{proof}
+
+Next, we collect Lemmas~1.4, 2.3, and 2.4 of Balister et
+al.~\cite{BGLS} in the notation needed below; the lower bound $p\ge1$
+when $s=0$ follows directly from connectedness.
+
+\begin{lemma}\label{lem:bgls-weights}
+Let $G$ be a connected graph, let $P$ be a longest path in $G$ of order
+$k$, and set $Y=V(G)\setminus V(P)\ne\varnothing$. For each $y\in Y$,
+let $s_y=d_P(y)$ and let $p_y$ be the number of edges in a longest path
+of $G[Y]$ starting at $y$. Putting $w_y=s_y+p_y/2$ and
+$\lambda=\binom{k}{2}-e(G[V(P)])$, we have
+\begin{equation}\label{eq:weights}
+ e(G)\le e(G[V(P)])+\sum_{y\in Y}w_y.
+\end{equation}
+Moreover, writing $s=s_y$ and $p=p_y$,
+\[
+\begin{array}{ll}
+ s>0: & 2s+2p\le k-1,\quad
+ \lambda\ge(p+1)(k-p-2)+\binom{s-1}{2},\\[1mm]
+ s=0: & 1\le p\le k-3,\quad
+ \lambda\ge\dfrac{k-1}{2}\bigl(\lfloor p/2\rfloor+1\bigr).
+\end{array}
+\]
+\end{lemma}
+
+For integers $1\le t<\ell/2$, define
+$F_\ell(t)=\binom{\ell-t}{2}+t(t+1)$ and
+$B(\ell,t)=\max\{F_\ell(t),F_\ell(\lfloor(\ell-1)/2\rfloor)\}$; by
+convexity, $B(\ell,t)=\max_{t\le j<\ell/2}F_\ell(j)$. A
+\emph{Hamiltonian path} and a \emph{Hamiltonian cycle} are a spanning
+path and a spanning cycle, respectively. By Balister et
+al.~\cite[Lemma~2.2, equations~(2.1)--(2.2)]{BGLS}, if a connected graph
+$R$ on $k+1$ vertices has no Hamiltonian path, $R-v$ has a Hamiltonian
+path, and $d_R(v)=d$, then $e(R)\le B(k,d)$. Choosing a removable vertex
+of maximum degree sharpens this bound as follows.
+
+\begin{lemma}\label{lem:omitted-vertex}
+Let $R$ be a connected graph on $k+1$ vertices that contains $P_k$ but
+has no Hamiltonian path. Call a vertex $v\in V(R)$ \emph{removable} if
+$R-v$ has a Hamiltonian path, and let $d$ be the maximum degree of a
+removable vertex. If $1\le d<\lfloor(k-1)/2\rfloor$, then
+\begin{equation}\label{eq:omitted-bound}
+ e(R)\le\max\bigl\{F_k(d),\,B(k-1,d)+\lfloor k/2\rfloor\bigr\}.
+\end{equation}
+If $d=\lfloor(k-1)/2\rfloor$, then $e(R)\le F_k(d)$.
+\end{lemma}
+\begin{proof}
+Pick a removable vertex $v$ with $d_R(v)=d$, and let
+$P=x_1\cdots x_k$ be a Hamiltonian path of $R-v$. Write
+$N_R(v)=\{x_{a_1},\ldots,x_{a_d}\}$ with $a_1<\cdots<a_d$. Since $R$ has
+no Hamiltonian path, $v$ is nonadjacent to $x_1$ and $x_k$ and has no
+two consecutive neighbors on $P$. Set
+$T=\{v,x_1,x_{a_1+1},\ldots,x_{a_d+1}\}$. An edge $x_1x_{a_i+1}$ would
+give the Hamiltonian path
+$vx_{a_i}x_{a_i-1}\cdots x_1x_{a_i+1}\cdots x_k$, while an edge
+$x_{a_i+1}x_{a_j+1}$ with $i<j$ would give
+$x_1\cdots x_{a_i}vx_{a_j}x_{a_j-1}\cdots x_{a_i+1}x_{a_j+1}\cdots x_k$;
+so $T$ is independent.
+
+In fact, adding an edge between any two vertices of $T\setminus\{v\}$
+creates a Hamiltonian path by the same rerouting. By the Bondy--Chv\'atal
+closure theorem for Hamiltonian paths (recalled in the next subsection),
+every pair in $T\setminus\{v\}$ has degree sum at most $k-1$, so at most
+one vertex of $T\setminus\{v\}$ has degree exceeding $\lfloor k/2\rfloor$.
+
+Suppose first that some $w\in T\setminus\{v\}$ satisfies
+$d<d_R(w)\le\lfloor k/2\rfloor$. Form a graph $R'$ on
+$V(R)\setminus\{w\}$ by deleting $w$ from $R$ and, if $w$ is an internal
+vertex of $P$, adding the edge between its two neighbors on $P$ (if not
+already present) and marking that added edge. Then $R'-v$ still has a
+Hamiltonian path, $d_{R'}(v)=d$ (since $vw\notin E(R)$), and $R'$ is
+connected. Moreover, $R'$ has no Hamiltonian path: a Hamiltonian path
+using the marked edge could be expanded through $w$ to a Hamiltonian path
+of $R$, whereas one avoiding it (or occurring when $w$ is an endpoint of
+$P$) would be a Hamiltonian path of $R-w$, making $w$ removable despite
+$d_R(w)>d$. Applying the BGLS estimate to $R'$ gives
+$e(R)=e(R-w)+d_R(w)\le e(R')+d_R(w)\le B(k-1,d)+\lfloor k/2\rfloor$.
+
+If no such $w$ exists, then all vertices of $T\setminus\{v\}$ except at
+most one have degree at most $d$, so $T$ contains at least $d+1$ vertices
+of degree at most $d$. Counting edges outside those $d+1$ vertices and
+edges incident with them yields
+$e(R)\le\binom{k-d}{2}+d(d+1)=F_k(d)$, establishing
+\eqref{eq:omitted-bound}.
+
+Finally, suppose $d=\lfloor(k-1)/2\rfloor$. When $k=2q+1$, we have
+$d=q=\lfloor k/2\rfloor$, so the first case cannot arise and the second
+gives $e(R)\le F_{2q+1}(q)$. When $k=2q$, either some vertex of
+$T\setminus\{v\}$ has degree $q$, in which case the construction of $R'$
+yields $e(R)\le B(2q-1,q-1)+q=F_{2q}(q-1)$, or no such vertex exists and
+the low-degree bound gives $F_{2q}(q-1)$ directly.
+\end{proof}
+
+\begin{lemma}\label{lem:p2-attachment}
+Let $H$ be a nonempty linear forest with all components of order at
+least two, and put $Q=\nu(H)$, $h=|H|$, and $o$ for the number of odd
+components of $H$. If $G$ is an $(H\cup P_2)$-free graph containing a
+path $P=v_1\cdots v_{h+1}$, then $V(G)\setminus V(P)$ is independent and
+every $x\in V(G)\setminus V(P)$ satisfies $d_P(x)\le Q-o$.
+\end{lemma}
+\begin{proof}
+Any edge outside $P$ together with a copy of $H$ inside $P$ would yield
+$H\cup P_2$, so $V(G)\setminus V(P)$ is independent.
+
+Fix $x\notin V(P)$. Two neighbors of $x$ on $P$ cannot be consecutive
+(otherwise $x$ inserts into $P$ to give $P_{h+2}$, which contains
+$H\cup P_2$), nor can their indices differ by $3$ (otherwise we take the
+edge between the two intervening vertices as $P_2$ and route the rest of
+$P$ through $x$, leaving a path of order $h$ that contains $H$).
+
+Order the components of $H$ arbitrarily, with partial order sums
+$0=S_0<S_1<\cdots<S_s=h$. For every $0\le j\le s$, we must have
+$xv_{S_j+1}\notin E(G)$, since otherwise $xv_{S_j+1}$ serves as $P_2$
+while the first $j$ components embed into $v_1\cdots v_{S_j}$ and the
+remaining ones into $v_{S_j+2}\cdots v_{h+1}$.
+
+Now examine a component of order $k$ starting after index $S$; all
+possible neighbors of $x$ in its block lie in $[S+2,S+k]$. If $k=2b$,
+having no consecutive neighbors allows at most $b$ neighbors in this
+interval. Suppose $k=2b+1$. Then $S+3$ and $S+k-1$ are also forbidden:
+if $xv_{S+3}\in E(G)$, we take $v_{S+1}v_{S+2}$ as $P_2$,
+$xv_{S+3}\cdots v_{S+k+1}$ as the current component, and fit the earlier
+and later components on $v_1\cdots v_S$ and
+$v_{S+k+2}\cdots v_{h+1}$; symmetrically, $xv_{S+k-1}\in E(G)$ allows us
+to use $v_{S+k}v_{S+k+1}$ as $P_2$ and $v_{S+1}\cdots v_{S+k-1}x$ as the
+current component. If $x$ had $b$ neighbors in $[S+2,S+k]$, then listing
+their indices in increasing order would give gaps of size at least $2$
+and never $3$, within a span of at most $2b-1$. A span of $2b-1$ would
+force one gap of size $3$, so the span must be $2b-2$ and every gap must
+equal $2$. The $b$ neighbors would then all have the same parity, which
+is impossible because the two excluded indices $S+3$ and $S+2b$ have
+opposite parity. Thus each odd component contributes at most $b-1$
+neighbors, and summing over all components gives $d_P(x)\le Q-o$.
+\end{proof}
+
+\begin{lemma}\label{lem:low-attachment}
+Let $q\ge3$, and let $G$ be a connected graph of order $n\ge2q+4$ whose
+longest path has order $k=2q+3$. Choose a longest path $P$ maximizing
+$d=\max_{y\notin V(P)}d_P(y)$. If $d\le q-1$, then
+$e(G)\le\max\{\binom{k}{2}+\lfloor(n-k)/2\rfloor,L_q(n)\}$.
+\end{lemma}
+\begin{proof}
+Set $Y=V(G)\setminus V(P)$, $N=|Y|$, $K=\binom{k}{2}$, and
+$\lambda=K-e(G[P])$. Also put $C=K-L_q(k)=(q+2)(q+3)/2$ and
+$z=C/(q-1/2)=(q+2)(q+3)/(2q-1)$.
+
+For each $y\in Y$, let $s,p$, and $w=s+p/2$ be as in
+Lemma~\ref{lem:bgls-weights}. Then $1/2\le w\le q$ and
+\[
+ \lambda\ge f(s,p):=
+ \begin{cases}
+  (p+1)(2q+1-p)+\binom{s-1}{2}, & s>0,\\
+  (q+1)(\lfloor p/2\rfloor+1), & s=0.
+ \end{cases}
+\]
+If $\lambda\ge C$, then \eqref{eq:weights} immediately gives
+$e(G)\le L_q(n)$, so assume $\lambda<C$. For $1\le s\le q-1$, we cannot
+have $p=q+1-s$ because $f(s,q+1-s)-C=(q^2-q-s^2+s-4)/2\ge q-3\ge0$;
+hence $p\le q-s$.
+
+Pick $x\in Y$ with $d_P(x)=d$. By the choice of $P$, the maximum degree
+of a removable vertex in $G[P\cup\{x\}]$ is $d$. Applying
+Lemma~\ref{lem:omitted-vertex} and noting that
+$F_k(d)-F_{k-1}(d)-(q+1)=q+1-d>0$, we get
+\[
+ \lambda\ge\min\{\alpha(d),\beta(d)\},\qquad
+ \alpha(s)=\frac{s(4q+5-3s)}{2},\quad
+ \beta(s)=\frac{q^2+3q+2}{2}+s.
+\]
+For every $1\le s\le d\le q-1$, we have
+$\min\{\alpha(d),\beta(d)\}\ge\min\{\alpha(s),\beta(s)\}$: for $q\ge4$
+this follows from the concavity of $\alpha$, the monotonicity of
+$\beta$, and $\alpha(q-1)-\beta(q-1)=q-4\ge0$, while for $q=3$ direct
+evaluation at $s=1,2$ gives $\alpha=7,11$ and $\beta=11,12$.
+
+We claim that $\lambda\ge z(w-1/2)$ for every $y\in Y$. Consider first
+$s=0$. If $p=2u$ with $1\le u\le q$, then $w=u$ and
+$\lambda-z(w-1/2)\ge D_{\rm e}(u):=(q+1)(u+1)-z(u-1/2)$; if $p=2u+1$
+with $0\le u\le q-1$, then $w=u+1/2$ and
+$\lambda-z(w-1/2)\ge D_{\rm o}(u):=(q+1)(u+1)-zu$. Both linear functions
+have slope $q+1-z$, which is positive for $q\ge6$, where
+$D_{\rm e}(1)=(7q^2-q-10)/(2(2q-1))>0$ and $D_{\rm o}(0)=q+1$. For
+$q=3,4,5$, checking the right endpoints gives the pairs $(1,0)$,
+$(4,2)$, and $(8,46/9)$, proving the claim for $s=0$.
+
+Now suppose $s>0$. The quantity $\beta(s)-z(q+s-1)/2$ decreases in $s$
+and equals $(q-4)(q-3)/(2(2q-1))\ge0$ at $s=q-1$, so
+$\beta(s)\ge z(w-1/2)$ since $w\le(q+s)/2$. Furthermore,
+$\lambda\ge\min\{\beta,(3\alpha+f)/4\}$. Define
+$\Psi(s,p)=(3\alpha(s)+f(s,p))/4-z(s+p/2-1/2)$, which is concave in
+$(s,p)$. Every feasible integer pair $(s,p)$ except $(q-1,1)$ lies in
+the convex hull of $(1,0)$, $(q-1,0)$, $(q-2,2)$, and $(1,q-1)$. At
+these four corners, $4(2q-1)\Psi$ equals $2(7q^2-5q-8)$,
+$4(q^2-5q+11)$, $2(q-3)(8q-11)$, and $(q-3)(5q+1)$, respectively, all
+nonnegative. At $(q-1,1)$, we have
+$\alpha(q-1)-z(q-1)=5(q-4)(q-1)/(2(2q-1))\ge0$ for $q\ge4$, and
+$f(2,1)=12=z(2+1/2-1/2)$ for $q=3$. Thus $\lambda\ge z(w-1/2)$ in all
+cases.
+
+Writing $\bar w=N^{-1}\sum_{y\in Y}w_y$, inequality \eqref{eq:weights}
+gives $e(G)\le K-\lambda+N\bar w\le K+z/2+(N-z)\bar w$. When $N\le z$,
+using $\bar w\ge1/2$ yields $e(G)\le K+N/2$, and hence
+$e(G)\le K+\lfloor N/2\rfloor$ by integrality; when $N\ge z$, using
+$\bar w\le q$ yields $e(G)\le L_q(n)$.
+\end{proof}
+
+\subsection{Hall's theorem and the closure theorem}
+
+We recall two standard tools. First, by Hall's theorem (see
+Diestel~\cite[Chapter~2]{Diestel}), a bipartite graph with bipartition
+$(X,Y)$ has a matching covering $X$ if and only if $|N(S)|\ge|S|$ for
+every $S\subseteq X$, where $N(S)$ is the set of neighbors of $S$ in
+$Y$.
+
+Second, by the Bondy--Chv\'atal closure theorem~\cite{BondyChvatal}, if
+$xy$ is a nonedge of an $m$-vertex graph, then adding $xy$ preserves the
+existence of a Hamiltonian cycle when $d(x)+d(y)\ge m$, a Hamiltonian
+path when $d(x)+d(y)\ge m-1$, and a Hamiltonian path with two prescribed
+endpoints when $d(x)+d(y)\ge m+1$ (the path statements follow from the
+cycle version by adjoining an auxiliary vertex and deleting it
+afterward). A vertex adjacent to all other vertices of a graph is called
+\emph{universal}.
+
+\subsection{Connected graphs with at most two odd components}
+
+We now treat connected graphs when the forbidden linear forest has at
+most two odd components. The first lemma will also be needed in
+Section~\ref{sec:connected}.
+
+\begin{lemma}\label{lem:two-odd-defect}
+Let $F=P_{2q+1}\cup P_{2s+1}$ with $q\ge s\ge1$, $q+s=a\ge3$, and
+$(q,s)\ne(1,1)$. Let $Q$ be a graph with vertex partition
+$V(Q)=S\dot\cup T$, where $|S|=a+2$, $|T|=a$, and the vertices of $T$
+are linearly ordered. For each $t\in T$, let $d_T^+(t)$ denote the
+number of neighbors of $t$ appearing later in this order. If nonnegative
+integers $\delta_t$ satisfy $d_S(t)+d_T^+(t)\ge a-1-\delta_t$ for all
+$t\in T$ and $\lambda+\Delta\le1$, where
+$\lambda=\binom{a+2}{2}-e(Q[S])$ and $\Delta=\sum_{t\in T}\delta_t$,
+then $Q$ contains a spanning copy of $F$.
+\end{lemma}
+\begin{proof}
+If $\Delta=0$, then every vertex of $T$ has degree at least $a-1$, while
+$Q[S]$ misses at most one edge and thus has minimum degree at least $a$;
+every nonadjacent pair in $Q$ therefore has degree sum at least $2a-2$,
+and Theorem~\ref{thm:ctw} yields a spanning copy of $F$. We may thus
+assume $\lambda=0$ and $\Delta=1$, so $Q[S]$ is complete and at most one
+vertex of $T$ has degree defect $1$.
+
+Suppose that $Q$ has no Hamiltonian path, and apply Hamiltonian-path
+closure iteratively. Whenever a vertex $x\in S$ has a neighbor in $T$,
+we have $d_Q(x)\ge a+2$, so closure first joins $x$ to all vertices of
+$T$ of degree at least $a-1$ (raising $d_Q(x)$ to at least $2a$) and
+then also to the possible vertex of degree $a-2$; thus $x$ becomes
+universal. Let $A\subseteq S$ be the set of vertices of $S$ that become
+universal under this procedure, and put $B=S\setminus A$ and $p=|B|$. By
+construction, no edge runs between $B$ and $T$.
+
+Let $u$ and $v$ be the last two vertices of $T$. Their forward degrees
+sum to at most $1$, so adding their degree inequalities gives
+$2(a-1)-\delta_u-\delta_v\le2|A|+1$. Using $\delta_u+\delta_v\le1$ and
+$|A|=a+2-p$ yields $p\le4$. On the other hand, if $p\le1$, then the
+vertices of $B\cup T$ as singletons form at most $|A|+1$ path components
+that can be linked via the universal set $A$ into a Hamiltonian path.
+Hence $2\le p\le4$.
+
+If $p=2$, the edge inside $Q[B]=K_2$ already reduces $B\cup T$ to a
+spanning linear forest with $|A|+1$ components, again giving a
+Hamiltonian path. If $p=4$, summing the degree inequalities over $T$
+gives $e(Q[T])\ge a-1\ge2$, and a spanning path of $Q[B]=K_4$ together
+with any two-edge linear forest in $Q[T]$ leaves $|A|+1$ components,
+another contradiction. Thus $p=3$, so $|A|=a-1$ and $Q[B]=K_3$.
+
+If $Q[T]$ contained an edge, that edge plus a spanning path of $Q[B]$
+would once again leave $|A|+1$ components. Therefore $T$ is independent,
+so every vertex of $T$ except possibly one is adjacent to all of $A$,
+and the lone exception misses at most one vertex of $A$. Let $b_1b_2b_3$
+be a spanning path of $Q[B]$, and write $A=\{x_1,\ldots,x_{a-1}\}$ and
+$T=\{t_1,\ldots,t_a\}$. Consider the two vertex-disjoint paths
+\[
+ b_1b_2b_3x_1t_1x_2t_2\cdots x_{q-1}t_{q-1}
+ \quad\text{and}\quad
+ t_q x_q t_{q+1} x_{q+1}\cdots x_{a-1}t_a,
+\]
+which have orders $2q+1$ and $2s+1$. If a missing edge $xt$ exists
+between $A$ and $T$, we simply place $t$ in one of the $a\ge3$
+$T$-positions not adjacent to $x$ (at most two positions are adjacent to
+$x$), and assign the remaining vertices arbitrarily. This gives a
+spanning copy of $F$ in $Q$.
+\end{proof}
+
+Next, we translate the connected two-odd-path bounds of Yuan and
+Zhang~\cite{YZ} and Dong et al.~\cite{DNYZ} into our notation.
+
+\begin{lemma}\label{lem:two-odd}
+Let $F=P_{2u+1}\cup P_{2v+1}$ with $u\ge v\ge1$ and $(u,v)\ne(1,1)$, and
+put $a=u+v$ and $m=2a+2$. If $G$ is a connected $F$-free graph of order
+$n\ge m$, then $e(G)\le\max\{B_m(n),J_a(n)+1\}$.
+\end{lemma}
+\begin{proof}
+Suppose first that $v=1$. When $u=2$, Yuan and
+Zhang~\cite[Theorem~1.8]{YZ} showed that
+$e(G)\le\max\{\ex(n,P_5),B_8(n),J_3(n)+1\}$, and by the Erd\H{o}s--Gallai
+bound we have $\ex(n,P_5)\le3n/2\le2n-2=J_3(n)+1$ for all $n\ge8$.
+
+Now let $u\ge3$, and assume $e(G)\ge B_m(n)$, as otherwise the bound is
+immediate. Set $D_u(n)=\binom{2u+1}{2}+n-2u-1$. If $G$ is
+$P_{2u+3}$-free, then \eqref{eq:bgls} with $k=2u+2$ yields
+$e(G)\le\max\{D_u(n),J_{u+1}(n)+1\}$. If instead $G$ contains
+$P_{2u+3}$, Case~2 in the proof of \cite[Theorem~1.8]{YZ} applies
+directly (it uses only that $G$ is connected, $(P_{2u+1}\cup P_3)$-free,
+contains $P_{2u+3}$, and satisfies $e(G)\ge B_m(n)$): it rules out
+$n\le3u+5$ by giving $e(G)<B_m(n)$, and for $n\ge3u+6$ it yields
+$e(G)<J_{u+1}(n)+1$. To absorb $D_u(n)$, note that
+$D_u(n)\le\binom{2u+3}{2}\le B_m(n)$ for $n\le6u+4$, while at $n=6u+4$
+we have $J_{u+1}(n)+1-D_u(n)=(u-1)(7u+4)/2>0$, and this difference grows
+with slope $u-1$ for larger $n$.
+
+Suppose now that $v\ge2$. By Dong et al.~\cite[Theorem~4.1]{DNYZ},
+\[
+ e(G)\le\max\left\{\binom{2a}{2}+n-2a,\,
+ \binom{a+1}{2}+(a-1)(n-a-1)\right\}
+ =\max\{D_a(n),J_a(n)+1\},
+\]
+where $D_a(n)=\binom{2a}{2}+n-2a$. For $n\le4a$, we have
+$D_a(n)\le\binom{2a+1}{2}\le B_m(n)$; at $n=4a$,
+$J_a(n)+1-D_a(n)=(3a^2-9a+2)/2>0$ since $a\ge4$, and the difference
+increases with slope $a-2$ thereafter.
+\end{proof}
+
+\begin{theorem}\label{thm:at-most-two-odd}
+Let $F\notin\{P_3,2P_3\}$ be a nonempty linear forest whose components
+all have order at least two, with $O\le2$ odd components. Put
+$a=\nu(F)$ and $m=|F|$, and let $\varepsilon=1$ if all components of $F$
+are odd and $\varepsilon=0$ otherwise. If $G$ is a connected $F$-free
+graph of order $n\ge m$, then
+$e(G)\le\max\{B_m(n),J_a(n)+\varepsilon\}$. Moreover, if $F$ contains a
+$P_2$ component or if $O\le1$, then $B_m(n)$ may be replaced by
+$\binom{m-1}{2}$.
+\end{theorem}
+\begin{proof}
+Assume first that $O\le1$. If $a=1$, then $F=P_2$ and no connected
+$F$-free graph of order at least $2$ exists. If $F=P_2\cup P_3$,
+applying \eqref{eq:bgls} with $k=4$ shows that $e(G)\le n-1=J_2(n)$,
+since the sole equality graph $K_1\vee(K_2\cup I_{n-3})$ contains $F$.
+
+Set $D_m(n)=\binom{m-2}{2}+n-m+2$ and $C_m=\binom{m-1}{2}$. When $F$ has
+no $P_2$ component, we have $e(G)\le\max\{D_m(n),J_a(n)+\varepsilon\}$
+by \cite[Lemma~2.1]{YZ} if $F$ has at least two components, and by
+\eqref{eq:bgls} if $F$ is a single path. When $F$ has a $P_2$ component
+(and $F\ne P_2,P_2\cup P_3$), applying \eqref{eq:bgls} with $k=m-1$
+yields $e(G)\le\max\{D_m(n),J_a(n)+O\}$. If $O=1$, the equality graph
+for the second term contains $F$ (start an even component with the edge
+outside the clique and alternate the remaining vertices between the two
+parts), so the extra edge cannot occur and again
+$e(G)\le\max\{D_m(n),J_a(n)+\varepsilon\}$. At $n_*=2m-4$, we have
+$D_m(n_*)=C_m$ and
+$2[J_a(n_*)+\varepsilon-C_m]=3(a-1)(a-2)-O(O+1)+2\varepsilon\ge0$; since
+the slopes are $1$ and $a-1$, it follows that
+$e(G)\le\max\{C_m,J_a(n)+\varepsilon\}$.
+
+Now let $O=2$. If every component is odd, then Lemma~\ref{lem:two-odd}
+gives the claim. Otherwise $F$ has an even component, so
+$\varepsilon=0$. Put $q=a-1\ge2$, $k=m-1=2q+3$, and $K=\binom{k}{2}$.
+Because $P_m$ contains $F$, every longest path in $G$ has order at most
+$k$.
+
+\medskip\noindent\emph{Case 1. $G$ is $P_k$-free.}\ 
+By \eqref{eq:bgls} with parameter $2q+2$, we have
+$e(G)\le\max\{D(n),L_q(n)+1\}$, where $D(n)=\binom{2q+1}{2}+n-2q-1$. At
+$n_*=6q+4$, $D(n_*)=K$ and $L_q(n_*)+1-K=(q-1)(7q+4)/2>1$, so comparing
+slopes ($1$ versus $q$) gives $D(n)\le\max\{K,L_q(n)\}$ for all $n$. If
+$e(G)>\max\{K,L_q(n)\}$, then equality must hold in the second term of
+\eqref{eq:bgls}, forcing $G\cong K_q\vee(K_2\cup I_{n-q-2})$. Starting
+an even component of $F$ with the edge of $K_2$ and alternating the
+remaining vertices between $K_q$ and $I_{n-q-2}$ uses $q=a-1$ vertices
+of $K_q$ and $m-q$ vertices outside it, producing a copy of $F$, a
+contradiction.
+
+\medskip\noindent\emph{Case 2. $F=H\cup P_2$ and $G$ contains a path of
+order $k=|H|+1$.}\ 
+By Lemma~\ref{lem:p2-attachment}, the vertices outside this path form an
+independent set, and the maximum number $s$ of neighbors of an outside
+vertex on the path satisfies $1\le s\le q-2$ (if $q=2$, this case is
+vacuous). Applying \eqref{eq:bgls} to the path together with an outside
+vertex of degree $s$ gives
+\[
+ e(G)\le K-\min\{A(s),C(s)\}+s(n-k),\qquad
+ A(s)=\frac{s(4q+5-3s)}{2},\quad C(s)=s+\frac{q(q+1)}{2}.
+\]
+The bounds $K$ and $L_q(n)$ intersect when $n-k=N_0:=(q+2)(q+3)/(2q)$.
+Because $s\le q-2$, we have $A(s)/s-N_0\ge3(q-1)/q>0$ and
+$C(s)-sN_0\ge6/q>0$ (the latter decreases with $s$). Both linear upper
+bounds therefore lie strictly below $\max\{K,L_q(n)\}$ at $n=k+N_0$, and
+hence for all $n$.
+
+\medskip\noindent\emph{Case 3. Every component of $F$ has order at
+least three, and $G$ contains $P_k$.}\ 
+Here $q\ge3$. Choose a longest path $P$ (necessarily of order $k$)
+maximizing $d=\max_{y\notin V(P)}d_P(y)$. By
+Lemma~\ref{lem:path-completion}, $d\le a-2=q-1$, so
+Lemma~\ref{lem:low-attachment} yields
+$e(G)\le\max\{K+\lfloor(n-k)/2\rfloor,L_q(n)\}=\max\{B_m(n),J_a(n)\}$.
+\end{proof}
+
+\section{Further lemmas for the connected case}\label{sec:coretools}
+
+To handle connected graphs when $H$ has at least three odd components,
+we work with the \emph{$j$-core} of a graph ($j\ge0$), defined as its
+unique largest induced subgraph of minimum degree at least $j$, which is
+obtained by iteratively deleting vertices of current degree less than
+$j$. Recall that a graph is \emph{$d$-degenerate} if every nonempty
+induced subgraph contains a vertex of degree at most $d$; thus every
+subgraph of minimum degree at least $j$ lies inside the $j$-core, and
+the $j$-core is empty precisely when the graph is $(j-1)$-degenerate. We
+write $\delta(G)$ for the \emph{minimum degree} of $G$, and continue to
+use $J_a(x)=(a-1)x-\binom{a}{2}$.
+
+We first record a minimum-degree corollary of a theorem of Egawa and
+Ota~\cite{EO}.
+
+\begin{corollary}\label{cor:min-deg-embed}
+Let $L$ be a nonempty linear forest whose components have order at least
+two, and let $X$ be a connected graph with $|X|\ge|L|$. If
+$\delta(X)>\nu(L)$, then $X$ contains $L$. The weaker assumption
+$\delta(X)\ge\nu(L)$ also suffices unless $L$ is a union of copies of
+$P_3$ or a union of two equal odd paths, and it suffices unconditionally
+when $|X|=|L|$.
+\end{corollary}
+\begin{proof}
+Write $L=P_{n_1}\cup\cdots\cup P_{n_k}$. Define
+$\sigma_3(X)=\min\{d_X(x)+d_X(y)+d_X(z):\{x,y,z\}\text{ is independent}\}$
+if $X$ has an independent set of size $3$, and $\sigma_3(X)=\infty$
+otherwise. Because $\sum_i\lfloor n_i/2\rfloor=\nu(L)$, the
+minimum-degree hypothesis implies $\sigma_3(X)\ge3\nu(L)$, so Egawa and
+Ota~\cite[Theorem~1]{EO} applies.
+
+It remains to check the three exceptional families in \cite{EO}:
+\begin{itemize}
+\item $L=kP_3$ and $X=K_1\vee(K_{a_1}\cup K_{a_2}\cup K_{a_3})$ with
+$a_i\equiv2\pmod{3}$ and $a_1+a_2+a_3=3k$. Here
+$\delta(X)=\min\{a_1,a_2,a_3\}\ge\nu(L)=k$, which forces
+$a_1=a_2=a_3=k$, so $\delta(X)=\nu(L)$ and $|X|=3k+1>|L|$.
+\item $L=2P_{2q+1}$ and $X=K_1\vee mK_{2q}$ with $m\ge3$. Here
+$\delta(X)=2q=\nu(L)$ and $|X|=1+2qm>4q+2=|L|$.
+\item $L=kP_3$ and $X=mK_2\vee B$ with $|B|=k-1$ and $m\ge k+1$. Every
+vertex in $mK_2$ has degree $k$, so $\delta(X)\le k=\nu(L)$ and
+$|X|=2m+k-1\ge3k+1>|L|$.
+\end{itemize}
+In all three families we have $\delta(X)\le\nu(L)$ and $|X|>|L|$, which
+yields all assertions of the corollary.
+\end{proof}
+
+We also use the following standard consequence of Dirac's
+theorem~\cite{Dirac}.
+
+\begin{lemma}\label{lem:dirac-path}
+Every connected graph $X$ of order $v$ and minimum degree $d$ contains a
+path of order at least $\min\{v,2d+1\}$. In particular, $X$ has a
+Hamiltonian path whenever $d\ge(v-1)/2$.
+\end{lemma}
+
+\subsection{Deleting an odd path}
+
+Fix $b\ge1$ and set $k=2b+1$. A vertex subset $U\subseteq V(G)$ is
+called a \emph{$P_k$-set} if $G[U]$ contains a Hamiltonian path, and we
+write $\ell_G(U)=e(G)-e(G-U)$ for the number of edges of $G$ incident
+with at least one vertex of $U$. Given a linear order on a vertex set
+$X$, let $d_X^+(v)$ be the number of neighbors of $v$ in $X$ appearing
+later in the order. For an ordered graph $Q$ and $U\subseteq V(Q)$, let
+$e_Q^-(U)$ denote the number of edges directed from $V(Q)\setminus U$
+into $U$.
+
+\begin{lemma}\label{lem:ordered-deletion}
+Let $k=2b+1$.
+\begin{enumerate}
+\item[(i)] Let $H$ be a graph of order $k+1$ containing $P_k$. If all
+$P_k$-sets of $H$ share a common vertex, then some vertex $v$ with
+$P_k\subseteq H-v$ satisfies $d_H(v)\le b$.
+\item[(ii)] If $H$ is an ordered graph of order $h>k$ containing $P_k$,
+then there exists $v\in V(H)$ such that $H-v$ contains $P_k$ and
+$d_H^+(v)\le b$.
+\item[(iii)] If $H$ is an ordered graph of order $h\ge k$ containing
+$P_k$, then $H$ contains a $P_k$-set $U$ with $e_H^-(U)\le b(h-k)$. The
+same bound holds for any acyclic orientation of $H$.
+\item[(iv)] In the setting of (iii), if nonnegative vertex weights
+satisfy $w(v)+d_H^+(v)\le D$ for all $v\in V(H)$, then some $P_k$-set
+$U$ satisfies $\sum_{u\in U}w(u)+\ell_H(U)\le kD+b(h-k)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For (i), assume for a contradiction that every removable vertex (one
+whose deletion leaves a $P_k$) has degree at least $b+1$. Pick such a
+vertex $x$, and let $q_1\cdots q_k$ be a Hamiltonian path of $H-x$. If
+$x$ has two consecutive neighbors on this path, we insert $x$ between
+them; otherwise its at least $b+1$ neighbors must be
+$q_1,q_3,\ldots,q_{2b+1}$, so $x$ can be appended at either end. In both
+cases $H$ has a Hamiltonian path. Its two endpoints are removable and
+have degree sum at least $2b+2=|H|$, so closure produces a Hamiltonian
+cycle in $H$. Deleting any vertex of this cycle leaves a $P_k$,
+contradicting that all $P_k$-sets share a vertex.
+
+We prove (ii) by induction on $h$. For $h=k+1$, part (i) applies if all
+$P_k$-sets intersect; otherwise every vertex is removable, and the last
+vertex in the order has forward degree $0$. For $h>k+1$, let $x$ be the
+first removable vertex in the order. By induction, $H-x$ has a vertex
+$u$ with $d_{H-x}^+(u)\le b$ such that $H-x-u$ contains $P_k$. Since $u$
+comes after $x$ in the order, restoring $x$ does not change the forward
+degree of $u$.
+
+For (iii), iterate (ii) while preserving the induced order until $k$
+vertices remain. Each edge entering the resulting $P_k$-set $U$ is
+counted precisely once, at the step when its earlier endpoint is
+deleted, giving $e_H^-(U)\le b(h-k)$. Any acyclic orientation admits a
+topological ordering, yielding the second statement. Finally, for every
+$U\subseteq V(H)$,
+\begin{equation}\label{eq:weighted-identity}
+ \sum_{u\in U}w(u)+\ell_H(U)
+ =\sum_{u\in U}\bigl(w(u)+d_H^+(u)\bigr)+e_H^-(U),
+\end{equation}
+from which (iv) follows immediately via (iii).
+\end{proof}
+
+We say that a graph is \emph{hereditarily $b$-sparse} if every connected
+subgraph $J$ satisfies $e(J)\le b|J|$.
+
+\begin{theorem}\label{thm:rooted-deletion}
+Let $G$ be a connected graph, let $R\ne\varnothing$ induce a connected
+subgraph, and set $Y=V(G)\setminus R$ and $N=|Y|$. Suppose that $G[Y]$
+contains $P_k$ (where $k=2b+1$) and that $Y$ is linearly ordered so that
+$d_R(y)+d_Y^+(y)\le D$ for every $y\in Y$, where $D\ge b$ is an integer.
+Set $A_b(D)=\max\{0,k^2-b^2-2b-bD\}=\max\{0,3b^2+2b+1-bD\}$. Then there
+exists a $P_k$-set $U\subseteq Y$ such that every component of $G-U$
+disjoint from $R$ is hereditarily $b$-sparse and
+$\ell_G(U)\le kD+b(N-k)+A_b(D)$. In particular, $A_b(D)=0$ whenever
+$b=1$ and $D\ge6$, or $b\ge2$ and $D\ge3b+3$.
+\end{theorem}
+\begin{proof}
+We first establish an unrooted bound for $D$-degenerate graphs: if
+$D\ge b$ and a $D$-degenerate graph $H$ of order $h\ge k$ contains
+$P_k$, then $H$ has a $P_k$-set $U$ with
+\begin{equation}\label{eq:degenerate-bound}
+ \ell_H(U)\le T_b(D,h):=bh+(b+1)D-b^2-2b.
+\end{equation}
+We proceed by induction on $h$. If $h\le D+b$, then any $k$-vertex
+subset has at most $\binom{k}{2}+k(h-k)=kh-k(b+1)$ incident edges, and
+$T_b(D,h)-(kh-k(b+1))=(b+1)(D-h+2b+1)-b^2-2b\ge1$.
+
+Now let $h\ge D+b+1$, and pick a vertex $v$ of minimum degree $d\le D$.
+If $H-v$ is $P_k$-free, the Erd\H{o}s--Gallai bound~\cite{EG} gives
+$e(H)\le D+(b-\tfrac{1}{2})(h-1)\le T_b(D,h)$, since the difference is
+$b(D-b)+(h-k)/2\ge0$. Suppose instead that $H-v$ contains $P_k$. By
+induction, $H-v$ has a $P_k$-set $U$ with
+$\ell_{H-v}(U)\le T_b(D,h-1)$. Reintroducing $v$ raises the edge loss by
+$d_U(v)$, which is at most $b=T_b(D,h)-T_b(D,h-1)$ unless
+$d_U(v)\ge b+1$. Assume $d_U(v)\ge b+1$, and set $W=U\cup\{v\}$ and
+$Z=V(H)\setminus W$. If some removable vertex $u\in W\setminus\{v\}$
+satisfies $d_Z(u)\ge d-b$, then
+$\ell_H(W\setminus\{u\})-\ell_{H-v}(U)=d-d_Z(u)\le b$, proving
+\eqref{eq:degenerate-bound}. Otherwise $d_Z(u)\le d-b-1$ for every
+removable $u\in W\setminus\{v\}$.
+
+In that case all vertices of $W$ must be removable: if all $P_k$-sets of
+$H[W]$ shared a vertex, Lemma~\ref{lem:ordered-deletion}(i) would
+produce a removable vertex of degree at most $b$ in $H[W]$, which cannot
+be $v$ (as $d_{H[W]}(v)\ge b+1$) and would therefore have degree at most
+$b+(d-b-1)=d-1$ in $H$, contradicting the choice of $v$. Setting
+$q=d_{H[W]}(v)$ and picking any $u\in W\setminus\{v\}$, we obtain
+\begin{align*}
+ \ell_H(W\setminus\{u\})
+ &\le\left(q+\binom{k}{2}\right)+(d-q)+(k-1)(d-b-1)\\
+ &=kd-b\le kD-b\le T_b(D,h),
+\end{align*}
+where the last step uses $b(h-D-b-1)\ge0$. This proves
+\eqref{eq:degenerate-bound}.
+
+Returning to $G$, put $L=kD+b(N-k)$ and $A=A_b(D)$. Applying
+Lemma~\ref{lem:ordered-deletion}(iv) to $G[Y]$ with weights $w(y)=d_R(y)$
+yields a $P_k$-set in $Y$ of loss at most $L$. Among all $P_k$-sets
+$U\subseteq Y$ with $\ell_G(U)\le L+A$, choose one maximizing the order
+of the component of $G-U$ containing $R$.
+
+Suppose for a contradiction that some component $C$ of $G-U$ disjoint
+from $R$ fails to be hereditarily $b$-sparse. Then $C$ contains a
+connected subgraph $J$ with $e(J)>b|J|$, and hence contains $P_k$ by the
+Erd\H{o}s--Gallai theorem. Because $G$ is connected, every component of
+$G-U$ sends an edge to the connected set $U$, so $G-C$ is connected and
+every edge leaving $C$ ends in $U$. Moreover, $G[C]$ is $D$-degenerate
+(under the induced order from $Y$) and $|C|\le N-k$. By
+\eqref{eq:degenerate-bound}, $C$ contains a $P_k$-set $V$ with
+\begin{align*}
+ \ell_G(V) &\le b|C|+(b+1)D-b^2-2b+k^2\\
+ &\le L+k^2-b^2-2b-bD\le L+A,
+\end{align*}
+where $k^2$ upper-bounds the edges between $V$ and $U$. In $G-V$, the
+connected graph $G-C$ remains intact and contains both $R$ and $U$, so
+the component containing $R$ strictly grows, contradicting the
+maximality of $U$. The final remark follows directly from the formula
+for $A_b(D)$.
+\end{proof}
+
+We will also use P\'osa's theorem~\cite{Posa} in its contrapositive
+form (see also F\"uredi, Kostochka, and Luo~\cite[Theorem~4]{FKL}): if a
+graph on $v\ge3$ vertices has no Hamiltonian cycle, then there exists an
+integer $1\le i<v/2$ such that at least $i$ vertices have degree at most
+$i$.
+
+The next lemma is a rooted variant of the Erd\H{o}s--Gallai bound.
+
+\begin{lemma}\label{lem:marked-root}
+Let $C$ be a connected graph and let $A\subseteq V(C)$ be nonempty. If
+no vertex of $A$ is an endpoint of a path of order $h+1$ in $C$ (where
+$h\ge1$), then
+\[
+ e(C)\le\frac{h-1}{2}|C|+\frac{|V(C)\setminus A|}{2}.
+\]
+\end{lemma}
+\begin{proof}
+We use induction on $h$. For $h=1$, every vertex of $A$ is isolated, so
+connectedness forces $|C|=1$. Let $h\ge2$, and set $q=|C|$ and
+$z=|V(C)\setminus A|$. Since $C[A]$ is $P_{h+1}$-free, the
+Erd\H{o}s--Gallai theorem~\cite{EG} provides a vertex $x\in A$ with
+$d_A(x)\le h-1$, whence $d_C(x)\le h-1+z$.
+
+In every component $D$ of $C-x$, the set $A_D=N_C(x)\cap V(D)$ is
+nonempty, and no vertex of $A_D$ can be an endpoint of a $P_h$ in $D$
+(prepending $x$ would yield a $P_{h+1}$ starting at $x\in A$). Applying
+the induction hypothesis to each component of $C-x$ and summing gives
+$e(C-x)\le(h-2)(q-1)/2+(q-1-d_C(x))/2$. Adding $d_C(x)$ and substituting
+$d_C(x)\le h-1+z$ completes the proof.
+\end{proof}
+
+\subsection{Path factors in a dense core}
+
+For $X\subseteq V(G)$, we abbreviate $e(G[X])$ to $e(X)$, and for
+disjoint subsets $A,B\subseteq V(G)$, we write $e(A,B)$ for the number
+of edges with one endpoint in $A$ and the other in $B$.
+
+\begin{lemma}\label{lem:rooted-joint}
+Let $b\ge1$, let $G$ be a connected graph, and let $V(G)=R\dot\cup Y$
+with $R\ne\varnothing$ and $\delta(G[R])\ge b$. If every copy of
+$P_{2b+1}$ in $G$ uses at least $b+1$ vertices of $R$, then
+$e(R,Y)+e(Y)\le b|R|+(b-1)|Y|$.
+\end{lemma}
+\begin{proof}
+When $b=1$, $G[Y]$ is $P_3$-free, so its components are edges and
+isolated vertices. An edge component in $G[Y]$ would have a neighbor in
+$R$ by connectedness, forming a $P_3$ with only one vertex in $R$. Thus
+$Y$ is independent, and no vertex of $R$ can have two neighbors in $Y$,
+so $e(R,Y)\le|R|$.
+
+Now assume $b\ge2$. Delete all edges inside $R$, and then repeatedly
+delete any remaining vertex of $R$ of current degree at most $b$, or any
+remaining vertex of $Y$ of current degree at most $b-1$, charging the
+deleted edges to the removed vertex. Suppose for a contradiction that a
+nonempty component $C$ survives. Then $\delta(C)\ge b$, and every vertex
+of $C\cap R$ has degree at least $b+1$ in $C$.
+
+Observe that $C$ is $P_{2b+2}$-free: since $R$ is independent in $C$, at
+least one of the two consecutive $P_{2b+1}$ subpaths of a $P_{2b+2}$
+would contain at most $b$ vertices of $R$. If $|C|\ge2b+1$, then
+Lemma~\ref{lem:dirac-path} yields a $P_{2b+1}$ in $C$, which must
+alternate between $R$ and $Y$ with both endpoints in $R$. Either
+endpoint has at least $b+1$ neighbors in $C$, while at most $b$ of them
+can lie on the path, allowing us to extend to a $P_{2b+2}$, a
+contradiction. Consequently $q:=|C|\le2b$. Since $\delta(C)\ge b\ge q/2$
+and $q\ge b+1\ge3$, Dirac's theorem gives a Hamiltonian cycle in $C$.
+
+If $C$ meets $R$, put $r=|C\cap R|$ and $y=|C\cap Y|$. Because vertices
+in $C\cap R$ have degree at least $b+1$ in $C$ and $C\cap R$ is
+independent, we have $y\ge b+1$ and hence $r\le b-1$. Open a Hamiltonian
+cycle of $C$ at a vertex $x\in C\cap R$, and set $\ell=2b+1-q\ge0$. If
+$\ell>0$, choose a path $r_1\cdots r_\ell x$ in $G[R]$ with
+$r_1,\ldots,r_\ell\in R\setminus V(C)$ greedily backwards from $x$; at
+each step fewer than $r+\ell\le b$ vertices of $R$ are unavailable while
+$\delta(G[R])\ge b$. Prepending $r_1\cdots r_\ell$ to the opened cycle
+produces a $P_{2b+1}$ with only $r+\ell=2b+1-y\le b$ vertices in $R$, a
+contradiction.
+
+If instead $C\subseteq Y$, take a shortest path from $R$ to $C$ (whose
+internal vertices lie in $Y\setminus C$) and continue around an opened
+Hamiltonian cycle of $C$. Starting at its unique vertex $x\in R$, this
+path is followed by at least $q\ge b+1$ consecutive vertices of $Y$.
+Attaching a $b$-vertex path in $G[R]$ ending at $x$ and keeping the
+first $b+1$ vertices of $Y$ again yields a $P_{2b+1}$ with exactly $b$
+vertices in $R$, a contradiction.
+
+Thus the deletion process empties the graph, and summing the charged
+degrees gives $e(R,Y)+e(Y)\le b|R|+(b-1)|Y|$.
+\end{proof}
+
+Theorem~\ref{thm:ctw} handles the zero-defect case with at least two
+components. The next theorem incorporates the ordered one-defect case as
+well as the single-path base case needed for induction.
+
+\begin{theorem}\label{thm:dense-core-factor}
+Let $H$ be a linear forest whose components have order at least two,
+with $a=\nu(H)$ and $O$ odd components. Set $\eta=1$ if all components
+of $H$ are odd, and $\eta=0$ otherwise. In the all-odd case, assume
+either that $H$ has at least two components with one of order at least
+five, or that $H$ is a single path of order at least seven.
+
+Let $G$ be a graph of order $|G|\ge m:=2a+O$ with a partition
+$V(G)=R\dot\cup Y$, where $c=|R|\ge a+1+\eta$ and $Y$ is linearly
+ordered. Suppose that nonnegative integers $\lambda$ and $\varepsilon_y$
+($y\in Y$) satisfy $\binom{c}{2}-e(G[R])\le\lambda$,
+$\lambda+\sum_{y\in Y}\varepsilon_y\le\eta$, and
+\begin{equation}\label{eq:dense-core-degree}
+ d_R(y)+d_Y^+(y)\ge a-1-\varepsilon_y \qquad (y\in Y).
+\end{equation}
+Then $G$ contains a copy of $H$.
+\end{theorem}
+\begin{proof}
+If $c\ge m$, then $G[R]$ misses at most one edge and hence contains
+$P_m$, which contains $H$. Assume $c<m$. Retaining $R$ and the last
+$m-c$ vertices of $Y$ preserves all forward degrees of those vertices,
+so we may assume $|G|=m$.
+
+Suppose first that $H$ has $t_H\ge2$ components (of which $e_H$ are
+even) and that $\sum_{y\in Y}\varepsilon_y=0$. Every vertex of $Y$ has
+degree at least $a-1$, while every vertex of $R$ has at least $a$
+neighbors in $R$ (since $c\ge a+1$ with $\lambda=0$ when $\eta=0$, and
+$c\ge a+2$ with $\lambda\le1$ when $\eta=1$). Hence
+$\sigma_2(G)\ge2a-2=m-t_H+e_H-2$, and Theorem~\ref{thm:ctw} gives a
+spanning copy of $H$.
+
+We may therefore assume that either $t_H=1$ or
+$\sum_{y\in Y}\varepsilon_y=1$. Suppose for a contradiction that $G$ has
+no Hamiltonian path, and put $N=|Y|$. We first claim that $N\ge a$.
+Assume $N\le a-1$. If an edge is missing inside $R$, then
+$\eta=\lambda=1$ and all $\varepsilon_y=0$; the two ends of this
+nonedge have degree sum at least $2(c-2)\ge m-1$, so Hamiltonian-path
+closure adds the edge. With $R$ now complete, closure adds every missing
+edge between $R$ and any $y\in Y$ with $\varepsilon_y=0$ (as their
+degree sum is at least $c+a-2\ge m-1$). If a single vertex $y\in Y$ has
+$\varepsilon_y=1$, then $\eta=1$ and $a\ge3$, so every vertex of $R$ now
+has degree at least $m-2$ while $d(y)\ge a-2\ge1$, and closure joins $y$
+to all of $R$ as well. Then $R$ is a universal clique of size $c>N$, so
+alternating vertices of $R$ and $Y$ gives a Hamiltonian path, a
+contradiction. Thus $N\ge a$.
+
+If $t_H=1$, then $N=m-c\le a-1$ regardless of the parity of $m$, a
+contradiction. Hence $t_H\ge2$, which forces $\sum_{y\in Y}\varepsilon_y=1$,
+$\eta=1$, and $\lambda=0$, so all components of $H$ are odd and $G[R]$
+is complete. We now proceed by induction on $O$.
+
+When $O=2$, we have $a\le N=m-c\le(2a+2)-(a+2)=a$, so $N=a$ and
+$c=a+2$. Since $H\ne2P_3$ by hypothesis, Lemma~\ref{lem:two-odd-defect}
+(with $S=R$, $T=Y$, and $\delta_y=\varepsilon_y$) yields a spanning copy
+of $H$.
+
+Now let $O\ge3$, and let $P_{2b+1}$ be a shortest component of $H$; then
+$bO\le a$ and $a\ge2b+2$. Note that $G$ is connected (following forward
+neighbors from any vertex of $Y$ eventually reaches $R$, as $a-2\ge1$)
+and $\delta(G[R])=c-1\ge a+1\ge b$. If every $P_{2b+1}$ in $G$ used at
+least $b+1$ vertices of $R$, then summing \eqref{eq:dense-core-degree}
+over $Y$ and applying Lemma~\ref{lem:rooted-joint} would give
+\[
+ (a-1)N-1\le bc+(b-1)N,\qquad
+ a^2\le aN\le b(2a+O)+1\le2ab+a+1,
+\]
+so $a(a-2b-1)\le1$, contradicting $a\ge2b+2$.
+
+Pick a copy of $P_{2b+1}$ using the minimum number $j\le b$ of vertices
+of $R$, and let $S$ be its vertex set in $R$. Place $S$ after $Y$ while
+keeping the given order on $Y$. By the minimality of $j$, every
+$P_{2b+1}$ in $G[Y\cup S]$ contains $S$. Repeatedly applying
+Lemma~\ref{lem:ordered-deletion}(ii) until $2b+1$ vertices remain
+deletes only vertices of $Y$; let $P$ be a Hamiltonian path of the
+surviving subgraph. When any $y\in Y\setminus V(P)$ was deleted, all
+vertices of $S$ and all later vertices of $V(P)\cap Y$ were still
+present, so $d_S(y)+d_{V(P)\cap Y}^+(y)\le b$.
+
+Deleting $P$ and keeping the induced order on $Y\setminus V(P)$ leaves a
+complete core $R\setminus S$ of size at least $(a-b)+2$, with
+\[
+ d_{R\setminus S}(y)+d_{Y\setminus V(P)}^+(y)\ge(a-b)-1-\varepsilon_y
+ \qquad(y\in Y\setminus V(P))
+\]
+and total defect at most $1$. The forest $H-P_{2b+1}$ has $O-1$ odd
+components, matching number $a-b$, and still contains a component of
+order at least $5$ (if $b=1$, a component of order at least $5$ remains;
+if $b\ge2$, at least two remain). By induction, $G-P$ contains
+$H-P_{2b+1}$, completing the copy of $H$.
+\end{proof}
+
+Note that the exclusion of a single $P_5$ in
+Theorem~\ref{thm:dense-core-factor} is necessary: $K_4\cup P_1$
+satisfies the degree conditions with $a=2$ and one allowed defect, yet
+contains no $P_5$.
+
+\subsection{The core obtained by the deletion process}
+
+Throughout this subsection, $H$ is a linear forest with all components
+of order at least two that is not a union of copies of $P_3$, having
+$O\ge3$ odd components. Put $a=\nu(H)$, $m=2a+O$, $E=a-O\ge1$, and
+$K=\binom{m-1}{2}$, and let $\varepsilon=1$ if all components of $H$ are
+odd and $\varepsilon=0$ otherwise.
+
+Core and disintegration techniques for linear forests have been used in
+stability results by Chen and Zhang~\cite{ChenZhang} and Zhu and
+Chen~\cite{ZhuChen}. The proposition below provides an all-order core
+structure that preserves both the deletion ordering and the exact edge
+surplus over $J_a(n)+\varepsilon$.
+
+\begin{proposition}\label{prop:core}
+Let $G$ be a connected $H$-free graph of order $n\ge m$ with
+$e(G)>\max\{K,J_a(n)+\varepsilon\}$. Then the $a$-core $R$ of $G$ is
+connected. Writing $c=|R|$, we have $c\le m-1$, $\delta(R)\ge a$, and
+$c\ge a+2+\varepsilon$. If the vertices of $Y=V(G)\setminus R$ are
+listed in their deletion order, then $d_R(y)+d_Y^+(y)\le a-1$ for every
+$y\in Y$, and $e(R)-J_a(c)>\varepsilon$. Furthermore, if $P_{2b+1}$ is a
+shortest odd component of $H$, then $R-S$ is connected and nonempty for
+every $S\subseteq V(R)$ with $|S|\le b$.
+\end{proposition}
+\begin{proof}
+We begin with a simple packing claim: if $p\ge2a-1$ and $q\ge a+1$, then
+$P_p\cup P_q$ contains $H$. Indeed, it suffices to select a subcollection
+of components of $H$ whose total order lies in $[O+1,a+1]$, placing them
+on $P_q$ and the remaining components (of total order at most
+$m-(O+1)=2a-1$) on $P_p$.
+
+To find such a subcollection, consider first $E=1$. Then $H$ is either
+$P_5\cup(O-1)P_3$ or $P_2\cup OP_3$, whose component-subset sums include
+$3j$ and $5+3j$, or $3j$ and $2+3j$; in either case one of the two
+consecutive integers $O+1,O+2=a+1$ is attained. Next let $E\ge2$. If
+$O=3$ and at least two odd components are $P_3$, their sum is
+$6\in[4,a+1]$; otherwise pick a shortest odd component of order at least
+$5$, say $3+2e$, so that at least two odd components have excess at
+least $e$, giving $E\ge2e$ and $3+2e\le E+3<a+1$. Finally, suppose
+$O\ge4$ and assume no subset has total order in $[O+1,a+1]$. Take a
+subcollection of maximum total order $L\le O$. Every omitted component
+$C$ must then have $|C|\ge a+2-L\ge E+2$, so each omitted odd component
+contributes at least $\lceil(E-1)/2\rceil$ to
+$E=a-O=\sum_{C\text{ odd}}(|C|-3)/2+\sum_{C\text{ even}}|C|/2$. Because
+the chosen set contains at most $\lfloor O/3\rfloor$ odd components, at
+least four odd components are omitted when $O\ge5$, yielding
+$E\ge4\lceil(E-1)/2\rceil>E$. When $O=4$ and $E\ne3$, at least three odd
+components are omitted, giving $E\ge3\lceil(E-1)/2\rceil>E$. In the sole
+remaining case $O=4,E=3$, writing the four odd orders as $3+2e_i$ with
+$\sum_i e_i\le3$, the two smallest $e_i$ sum to at most $1$, so their
+two components have total order in $[6,8]\subseteq[5,8]=[O+1,a+1]$. This
+establishes the claim.
+
+Now turn to the $a$-core $R$. If $R=\varnothing$, then $G$ is
+$(a-1)$-degenerate and $e(G)\le J_a(n)$, a contradiction. The deletion
+order immediately gives $d_R(y)+d_Y^+(y)\le a-1$ for all $y\in Y$, and
+summing the deleted degrees yields $e(R)-J_a(c)>\varepsilon$. Every
+component of $R$ has order at least $a+1$. By
+Corollary~\ref{cor:min-deg-embed}, since $\delta(R)\ge a>\nu(L)$ for
+every proper subforest $L$ of $H$, and since $H$ is neither $tP_3$ nor
+$2P_{2q+1}$, no component of $R$ can have order at least $m$; hence
+every component of $R$ has order at most $m-1$.
+
+Suppose $R$ is disconnected. If some component $C_1$ has order at least
+$2a-1$, Lemma~\ref{lem:dirac-path} yields a $P_{2a-1}$ in $C_1$, while a
+second component $C_2$ has a $P_{a+1}$, and the claim gives $H$. Thus
+every component of $R$ has order at most $2a-2$ and is Hamiltonian by
+Dirac's theorem. If $R$ had at least three components, a shortest path
+in $G$ between two of them (with internal vertices outside $R$) together
+with their Hamiltonian paths would yield a path of order at least
+$2a+3$, which with a $P_{a+1}$ from a third component again gives $H$.
+Therefore $R$ has exactly two components. Connecting their Hamiltonian
+paths via a shortest path in $G$ produces a path of order at least
+$c+1$, forcing $c\le m-2$. Setting $s=c-2a$, we have
+$2\le s\le O-2\le a-3$ (already impossible for $O=3$). Since both
+components have order at least $a+1$, convexity gives
+$e(R)-J_a(c)\le\{s(s-1)-a(a-1)+2\}/2<0$, contradicting
+$e(R)-J_a(c)>\varepsilon$. Hence $R$ is connected and $c\le m-1$.
+
+Set $t=c-a$, $\lambda=\binom{c}{2}-e(R)$, and
+$\Delta=\sum_{y\in Y}(a-1-d_R(y)-d_Y^+(y))$. Counting edges inside $R$
+and at each deletion step gives
+$e(G)-J_a(n)=\binom{t+1}{2}-\lambda-\Delta$. If $\varepsilon=0$ and
+$c=a+1$, the strict excess forces $\lambda=\Delta=0$, and
+Theorem~\ref{thm:dense-core-factor} yields $H$. If $\varepsilon=1$, then
+$c=a+1$ gives excess at most $1$, while $c=a+2$ forces
+$\lambda+\Delta\le1$, so retaining $R$ and the last $m-c$ vertices of
+$Y$ again produces $H$ by Theorem~\ref{thm:dense-core-factor}. Thus
+$c\ge a+2+\varepsilon$.
+
+It remains to verify the connectivity of $R-S$. Consider first $b=1$,
+and suppose $v$ is a cutvertex of $R$. Let the components of $R-v$ have
+orders $x_1,\ldots,x_s$. Since $\delta(R)\ge a$, each $x_i\ge a$, so
+$s\ge2$ and $t=c-a\ge a+1$. By convexity,
+$e(R)\le\sum_{i=1}^s\binom{x_i+1}{2}\le\binom{a+1}{2}+\binom{t}{2}$,
+whence
+\[
+ e(R)-J_a(c)\le a+\frac{t(t-2a+1)}{2}
+ \le a(1-E)+\frac{E(E+1)}{2},
+\]
+using $t\le a+O-1=2a-E-1$. If $E\ge2$, then $a\ge E+2$ and the bound is
+at most $(-E^2-E+4)/2<0$, impossible. If $E=1$, the bound equals $1$,
+which contradicts $e(R)-J_a(c)>\varepsilon$ when $\varepsilon=1$. The
+only remaining possibility is $H=P_2\cup(a-1)P_3$ with $a=O+1\ge3$, in
+which equality must hold throughout: since $a+t(t-2a+1)/2$ is strictly
+increasing for $t\ge a+1$, we get $t=2a-2$, $c=3a-2$, and $R-v$ has
+exactly two components, of orders $a$ and $2a-3$, each forming a clique
+together with $v$. Call these two cliques minus $v$ the \emph{private
+cliques}.
+
+Because $G$ is connected and $n>c$, some edge $yw$ connects $y\notin R$
+to $w\in R$. If $w\ne v$, starting at $y$, traversing the private clique
+containing $w$, passing through $v$, and traversing the other private
+clique yields a $P_m$ and hence $H$. If $w=v$, note that the private
+cliques have orders $a$ and $2a-3$. When $a\equiv0\pmod{3}$, we take $yv$
+as $P_2$ and partition both private cliques into copies of $P_3$. When
+$a\not\equiv0\pmod{3}$, let $D_1$ be the private clique of order
+$1\pmod{3}$ and $D_2$ the other; pick $u\in D_1$, take $yvu$ as a $P_3$
+and an edge of $D_2$ as $P_2$, and partition the remaining vertices of
+both cliques into copies of $P_3$. This yields $H$ in all cases, so $R$
+is $2$-connected.
+
+Finally, suppose $b\ge2$ and some set $S$ of size $s\le b$ separates
+$R$. Every component of $R-S$ has at least $a-s+1$ vertices, so
+$e(R)-J_a(c)\le\binom{t+1}{2}-(a-s+1)(t-1)$. For $t\ge a-s+2$, this
+expression increases with both $t$ and $s$. Substituting $t\le a+O-1$
+and $s\le b$, then using $a\ge bO$ (the expression decreases in $a$) and
+$O\ge3$ (it decreases in $O$), we obtain
+\[
+ e(R)-J_a(c)\le\frac{-a^2+(2b+1)a+O^2+(2b-3)O-4b+4}{2}
+ \le\frac{-(b^2-1)O^2+(2b^2+3b-3)O-4b+4}{2}.
+\]
+At $O=3$ this equals $(-3b^2+5b+4)/2$, which is negative for $b\ge3$.
+For $b=2$, the only nonnegative case is $O=3,a=6$ (so $H=3P_5$), where
+the bound is $1$ and $\varepsilon=1$, again contradicting
+$e(R)-J_a(c)>\varepsilon$. Since $|R|\ge a+2>b$, $R-S$ is connected and
+nonempty.
+\end{proof}
+
+\subsection{Bounds for the core}
+
+Let $r\ge2$, $m=2a+r$, and $k=2b+1$ with $b\ge1$. Let
+$\varepsilon\in\{0,1\}$, set $K=\binom{m-1}{2}$, and recall
+$B_m(x)=K+\lfloor(x-m+1)/2\rfloor$. In this subsection, $H$ is a linear
+forest with matching number $a$, $r$ odd components, shortest odd
+component $P_k$, and all even components of order at least $2$, with
+$\varepsilon=1$ precisely when all components of $H$ are odd (so
+$a\ge rb$, and $a\ge rb+1$ if $\varepsilon=0$).
+
+Let $G$ be a connected $H$-free graph of order $n\ge m$ with connected
+$a$-core $R$ of order $c=a+t$, and set $Y=V(G)\setminus R$ and $N=|Y|$.
+With $Y$ in its deletion order, put
+$\delta_y=a-1-d_R(y)-d_Y^+(y)$, $\Delta=\sum_{y\in Y}\delta_y$, and
+$\lambda=\binom{c}{2}-e(R)$; these are nonnegative and satisfy
+$e(G)-J_a(n)=\binom{t+1}{2}-\lambda-\Delta$. We examine copies of $P_k$
+using at most $b$ vertices of $R$. By Proposition~\ref{prop:core},
+deleting any such path leaves a nonempty connected subgraph of $R$, and
+we assume this property below.
+
+\begin{lemma}\label{lem:path-loss}
+Suppose $G$ contains a copy of $P_k$ using at most $b$ vertices of $R$,
+and let $j\le b$ be the minimum number of vertices of $R$ used by such a
+path. Then there exists a copy $P$ of $P_k$ using $j$ vertices of $R$
+such that
+\[
+ \ell_G(V(P))\le\mathcal{L}_b(n)-s_j,\qquad
+ \mathcal{L}_b(n)=bn+(b+1)a-\frac{3b^2+5b+2}{2},\qquad
+ s_j=(b-j)t+\binom{b-j+1}{2}.
+\]
+Moreover, if $j\ge1$, every component $C$ of $G-P$ disjoint from
+$R\setminus V(P)$ satisfies $e(C)\le\eta_j|C|$, where
+$\eta_1=b-\tfrac{1}{2}$, $\eta_2=b-1$, and $\eta_j=b-(j-1)/2$ for
+$j\ge3$ (in particular, $e(C)\le(b-1)|C|$ whenever $j\ge2$). For
+$j\ge3$, the stronger inequality $e(C)\le\eta_j(|C|-1)$ holds.
+\end{lemma}
+\begin{proof}
+Fix a copy of $P_k$ attaining the minimum $j$, and let $S=V(P)\cap R$.
+Keep the deletion order on $Y$ and append $S$ at the end in any order,
+giving each vertex $v\in Y\cup S$ weight $w(v)=d_{R\setminus S}(v)$. By
+the minimality of $j$, every $P_k$ in $G[Y\cup S]$ contains $S$. For
+$y\in Y$, we have
+$w(y)+d_{Y\cup S}^+(y)=d_R(y)+d_Y^+(y)\le a-1$, while over $S$ the sum
+of weights and forward degrees is at most
+$e(S,R\setminus S)+e(S)\le j(c-j)+\binom{j}{2}=jc-j(j+1)/2$. By
+Lemma~\ref{lem:ordered-deletion}(iii), $G[Y\cup S]$ has a $P_k$-set $U$
+with $e_{G[Y\cup S]}^-(U)\le b(N-(k-j))$; let $P$ be a Hamiltonian path
+of $G[U]$. Since $S\subseteq U$, identity \eqref{eq:weighted-identity}
+counts all edges of $G$ incident with $V(P)$, giving
+\[
+ \ell_G(V(P))\le(k-j)(a-1)+jc-\frac{j(j+1)}{2}+b(N-k+j)
+ =\mathcal{L}_b(n)-s_j.
+\]
+(For $j=0$, Lemma~\ref{lem:ordered-deletion}(iv) with $w(y)=d_R(y)$
+gives the same bound.)
+
+Now let $j\ge1$, and let $C$ be a component of $G-P$ disjoint from
+$R\setminus S$. Since $G[Y]$ is $P_k$-free, the Erd\H{o}s--Gallai
+theorem gives $e(C)\le(b-\tfrac{1}{2})|C|$, settling $j=1$.
+
+For $j\ge2$, pick a shortest path $r_0z_1\cdots z_\ell x$ from $R$ to
+$C$ in $G$, where $r_0\in R$, $x\in C$, and
+$z_1,\ldots,z_\ell\notin R\cup C$. Since $\delta(G[R])\ge a$ and
+$j-1\le b-1$, we can pick a path of order $j-1$ in $R$ ending at $r_0$
+(just $r_0$ when $j=2$). If $C$ had a path of order $k-j+1$ starting at
+$x$, concatenating these paths would produce a path of order at least
+$k$ using only $j-1$ vertices of $R$, contradicting the minimality of
+$j$. Applying Lemma~\ref{lem:marked-root} with $A=\{x\}$ yields
+$e(C)\le(k-j)|C|/2-1/2$.
+
+When $j\ge3$, put $h=k-j=2\eta_j$ and $q=|C|$. In every component of
+$C-x$, mark the neighbors of $x$; none of them can start a $P_h$ in
+$C-x$ (else adding $x$ gives a $P_{h+1}$ starting at $x$). Applying
+Lemma~\ref{lem:marked-root} with parameter $h-1$ to each component of
+$C-x$ and adding $d_C(x)$ gives
+$e(C)\le(h-1)(q-1)/2+d_C(x)/2\le h(q-1)/2=\eta_j(q-1)$.
+
+Finally, let $j=2$. By connectedness of $G$, some vertex $x\in C$ has a
+neighbor $u\in V(P)$. If $C$ contained a $P_{2b}$ starting at $x$,
+prepending $u$ would yield a $P_{2b+1}$ using at most one vertex of $R$,
+contradicting $j=2$. Form $C^+$ by attaching a pendant leaf at $x$; then
+$C^+$ is connected and $P_{2b+1}$-free. For $q=|C|\le2b-1$, the trivial
+clique bound gives $e(C)\le(b-1)q$. For $q\ge2b$, applying
+\eqref{eq:bgls} to $C^+$ and subtracting the pendant edge yields
+$e(C)\le\max\{q+2b^2-5b+2,\,(b-1)q-(b-1)(b-2)/2\}\le(b-1)q$, as
+$(b-1)q-(q+2b^2-5b+2)=(b-2)(q-2b+1)\ge0$.
+\end{proof}
+
+\begin{lemma}\label{lem:residual}
+Let $P$ be a copy of $P_k$ using $j$ vertices of $R$ with
+$\ell_G(V(P))\le\mathcal{L}_b(n)-s+A$, and let $Q$ be the component of
+$G-P$ containing $R\setminus V(P)$. Suppose that every other component
+$C$ of $G-P$ satisfies $e(C)\le\eta|C|$, where $|Q|>\eta+1$,
+$\tfrac{1}{2}\le\eta<a-b-1$, and $0<b+\eta<a-1$. Put $v=m-k-1$,
+$K'=\binom{v}{2}$, $q_0=a+t-j$, and $z=a-2b+r-2$. Set $\xi=1/2$, or
+$\xi=0$ if the connected upper bound for $H-P_k$ has the constant term
+$K'$ in place of $B_{m-k}$. Using $\binom{x}{2}=x(x-1)/2$ for all
+integers $x$, define
+\[
+ I=(\eta-\xi)
+ \begin{cases}
+  \displaystyle\frac{\max\bigl\{0,\binom{z+1}{2}-\binom{t-j+1}{2}\bigr\}}{a-1-\xi},
+   & q_0\le v,\\[7pt]
+  q_0-v, & q_0>v.
+ \end{cases}
+\]
+(Note that the two cases agree at $q_0=v$, where $t-j=z$.) Then
+\[
+ e(G-P)\le\max\bigl\{K'+\eta(n-m+1)-I,\,J_{a-b}(n-k)+\varepsilon\bigr\}.
+\]
+If $G-P-Q$ is nonempty of order $w$ and satisfies
+$e(G-P-Q)\le\eta w-\theta$, then the first term may be decreased by
+$\theta$. Moreover, the second term plus $\ell_G(V(P))$ does not exceed
+$J_a(n)+\varepsilon$ whenever $s\ge A$.
+
+Without the reductions $I$ and $\theta$, the minimum gap between
+$M_0(x)=\max\{K,J_a(x)+\varepsilon\}$ and the sum of the first term and
+$\mathcal{L}_b(x)-s+A$ is $\Gamma_r(b,\eta)+s-A$, attained at
+$n_0=(5a+4r-2+f_r)/2$, where $f_r=(r(r+1)-2\varepsilon)/(a-1)$ and
+\begin{equation}\label{eq:gamma}
+ \Gamma_r(b,\eta)=\frac{b+2-\eta}{2}a+r(1-\eta)
+ -\frac{(b+1)(b+2)}{2}-\frac{b+\eta}{2}f_r,
+\end{equation}
+with slopes $-(b+\eta)$ for $x\le n_0$ and $a-1-b-\eta$ for $x\ge n_0$.
+\end{lemma}
+\begin{proof}
+Write $q=|Q|\ge q_0$. By the core-deletion order,
+$e(Q)\le C(q):=(a-1)q-\binom{a}{2}+\binom{t-j+1}{2}$, and for $q\le v$
+we also have $e(Q)\le\binom{q}{2}$. Both $\binom{q}{2}-\eta q$ and
+$C(q)-\eta q$ are increasing on our range. For $q\ge v+1$, the connected
+bound for $H-P_k$ gives either $e(Q)\le J_{a-b}(q)+\varepsilon$ (whose
+slope $a-b-1>\eta$ means that adding $e(G-P-Q)\le\eta(n-k-q)$ stays at
+most $J_{a-b}(n-k)+\varepsilon$) or
+$e(Q)\le\min\{C(q),\,K'+\xi(q-v)\}$.
+
+In the latter case, put $D=K'-C(v)=\binom{z+1}{2}-\binom{t-j+1}{2}$. If
+$q_0\le v$ and $D\ge0$, the increasing function $C(q)-\eta q$ meets the
+nonincreasing function $K'+\xi(q-v)-\eta q$ at $q=v+D/(a-1-\xi)$, so
+their pointwise minimum is maximized there with value
+$K'-\eta v-(\eta-\xi)D/(a-1-\xi)$ (and $q<v$ gives no larger value). If
+$q_0\le v$ and $D<0$, we simply drop the $C(q)$ cap. If $q_0>v$, the
+nonincreasing function is maximized at $q=q_0$, losing
+$(\eta-\xi)(q_0-v)$ relative to $q=v$. Adding
+$e(G-P-Q)\le\eta(n-k-q)$ (or $\eta(n-k-q)-\theta$ when the sharper
+estimate holds) yields the stated bound on $e(G-P)$.
+
+Finally, since $J_a(n)-\mathcal{L}_b(n)=J_{a-b}(n-k)$, the second branch
+is covered whenever $s\ge A$. For the first branch, the gap against
+$M_0(x)$ has negative slope $-(b+\eta)$ for $x\le n_0$ and positive
+slope $a-1-b-\eta$ for $x\ge n_0$, so its minimum occurs at $n_0$, where
+direct substitution gives \eqref{eq:gamma}.
+\end{proof}
+
+\begin{lemma}\label{lem:positive-core-use}
+In the setting of Lemma~\ref{lem:residual}, assume $r\ge3$, $b\ge1$,
+$a\ge\max\{rb,r+1\}$ (with $a\ge rb+1$ when $\varepsilon=0$), and
+$t\ge2+\varepsilon$, and assume the connected bound for $H-P_k$ holds.
+If $G$ contains a copy of $P_k$ using at most $b$ vertices of $R$ and
+the minimum number $j$ of vertices of $R$ used by such a path is
+positive, then $e(G)\le\max\{K,J_a(n)+\varepsilon\}$.
+\end{lemma}
+\begin{proof}
+Suppose first that $b=1$, so $j=1$ and $a\ge r+1\ge4$. Apply
+Lemma~\ref{lem:residual} with $\eta=1/2$ (noting that
+$|Q|\ge a+t-1\ge5>\eta+1$). Since $s_1=0=A$, the $J_{a-b}$ term is
+covered, while the gap for the first term is
+$\Gamma_r(1,1/2)=(5a+2r-12-3f_r)/4$. Its derivative in $a$ is
+$5/4+3[r(r+1)-2\varepsilon]/(4(a-1)^2)>0$, and at $a=r+1$ it equals
+$r-5/2+3\varepsilon/(2r)>0$. Assume therefore that $b\ge2$.
+
+Pick a copy $P$ of $P_k$ using $j\in[1,b]$ vertices of $R$ as in
+Lemma~\ref{lem:path-loss}, with $s_j=(b-j)t+\binom{b-j+1}{2}$ and
+$\eta_1=b-\tfrac{1}{2}$, $\eta_2=b-1$, $\eta_j=b-(j-1)/2$ for $j\ge3$;
+set $\theta_j=0$ for $j\le2$ and $\theta_j=\eta_j$ for $j\ge3$.
+
+If $G-P$ is connected (no component outside $Q$), we may apply
+Lemma~\ref{lem:residual} with $\eta=1/2$ and drop $s_j\ge0$. Since
+\[
+ \frac{\partial}{\partial a}\Gamma_r(b,1/2)
+ =\frac{2b+3}{4}+\frac{(2b+1)[r(r+1)-2\varepsilon]}{4(a-1)^2}>0,
+\]
+the minimum over $a$ occurs at $a=rb$ (when $\varepsilon=1$) or
+$a=rb+1$ (when $\varepsilon=0$). For $\varepsilon=0$ and $a=rb+1$, we
+have $d\Gamma_r(b,1/2)/dr=(b+1)^2(2b-1)/(4b)>0$. For $\varepsilon=1$
+and $a=rb$, the derivative in $r$ is $N_b(r)/(4(br-1)^2)$, where
+$N_b(r)=2b^4r^2+3b^3r^2-4b^3r-6b^2r-2b^2-br^2+3b+2r+3$; here
+$N_b'(r)=2(b+1)^2(2b-1)(br-1)>0$ and
+$N_b(3)=18b^4+15b^3-20b^2-6b+9>0$ for $b\ge2$ (increasing in $b$ with
+$N_2(3)=325$). Thus the minimum occurs at $r=3$, where both choices of
+$\varepsilon$ exceed $b^2+3b/4-3/2-1/b>0$ (by $(b-2)(2b+1)/(2b(3b-1))$
+and $(2b+3)/4$, respectively).
+
+Now assume $G-P$ has a component outside $Q$. Apply
+Lemma~\ref{lem:residual} with $\xi=1/2$, and write
+$\Phi_j(t)=\Gamma_r(b,\eta_j)+s_j+\theta_j+I_j(t)$ and $z=a-2b+r-2$.
+For $2\le t\le z+j$,
+\begin{equation}\label{eq:cap}
+ I_j(t)=\frac{\eta_j-1/2}{a-3/2}
+ \left\{\binom{z+1}{2}-\binom{t-j+1}{2}\right\}\ge0,
+\end{equation}
+while $I_j(t)=(\eta_j-1/2)(t-j-z)$ for $t\ge z+j$. Thus $\Phi_j$ is
+concave on $[2,z+j]$, and for $t\ge z+j$ its slope is
+$(b-j)+(\eta_j-1/2)$, which equals $2b-2$ ($j=1$), $2b-7/2$ ($j=2$), or
+$2b-3j/2$ ($j\ge3$), all strictly positive. Hence $\Phi_j(t)$ is
+minimized at $t=2$ or $t=z+j$.
+
+Both endpoint values increase with $a$ and $r$. Indeed, at $t=2$, put
+$D=a-3/2$ and $h=(2-j)(3-j)\ge0$; up to the positive factor
+$\eta_j-1/2$, the term $I_j(2)$ is $\{z(z+1)-h\}/(2D)$, whose
+$a$-derivative has numerator $z(2D-z)+D+h>0$ since $2D-z=a+2b-r-1>0$.
+At $t=z+j$, $I_j=0$ and $\partial s_j/\partial a=b-j\ge0$. Together with
+\[
+ \frac{\partial}{\partial a}\Gamma_r(b,\eta_j)
+ =\frac{b+2-\eta_j}{2}
+ +\frac{(b+\eta_j)[r(r+1)-2\varepsilon]}{2(a-1)^2}>0,
+\]
+this shows monotonicity in $a$. Along the boundaries $a=rb$ (where
+$z=(r-2)(b+1)$ and $df_r/dr\le3/(2b)$) and $a=rb+1,\varepsilon=0$ (where
+$z=(r-2)(b+1)+1$ and $df_r/dr=1/b$), $I_j(2)$ increases in $r$, and
+substituting into \eqref{eq:gamma} shows that the $r$-derivative of each
+endpoint value is at least $b/4+3/(8b)$ for $j=1$, $b/2+1/2+3/(4b)$ for
+$j=2$, and $b(j-1)/4+(j-2)/2+3(j-1)/(8b)$ for $j\ge3$. Thus it suffices
+to check $r=3$, with $a\ge3b$ and $f_3\le4/b$.
+
+For $j\in\{1,2\}$, evaluation at $t=2$ gives
+$\Phi_1(2)\ge(3b^2-10b+4)/(4b)$ and $\Phi_2(2)\ge(b-2)^2/(2b)$. At the
+right endpoint, $(r,a,\varepsilon)=(3,3b,1)$ gives
+$\Phi_1(z+1)\ge(12b^3-7b^2-21b+4)/(4(3b-1))>0$ and
+$\Phi_2(z+2)\ge(b-2)(2b-1)(3b+5)/(2(3b-1))\ge0$, while the mixed case
+$(3,3b+1,0)$ is larger by $(12b^3-9b^2+17b-4)/(4b(3b-1))$ and
+$(2b-1)(3b^2-3b+4)/(2b(3b-1))$, respectively. Every value is nonnegative
+except $\Phi_1(2)$ when $b=2,j=1$: there the value without $I_1(2)$ is
+$-1/2$, while $I_1(2)=10/9$, giving $\Phi_1(2)=11/18>0$ (and
+$\Phi_1(z+1)=3/2$).
+
+Finally, let $j\ge3$ and set $q=b-j\ge0$. At $t=2$,
+$I_j(2)\ge(b+q)(q+4)(2b-q-1)/(6(2b-1))\ge b(q+4)/6$, so completing the
+square gives
+\[
+ \Phi_j(2)\ge\frac{1}{2}\left(q-\frac{7b}{12}\right)^2
+ +\frac{23b^2}{288}+\frac{5b}{12}-2-\frac{1}{b}
+ +\left(\frac{3}{2}-\frac{1}{b}\right)q,
+\]
+which is positive for $b\ge4$ (at $b=4,q=0$, the non-square part is
+$25/36$); for $b=3$ we have $q=0$ and $\Phi_3(2)=7/6$. At $t=z+j$,
+\[
+ \Phi_j(z+j)\ge\frac{b(b-1)}{4}-2-\frac{1}{b}
+ +q\left(\frac{5b}{4}+\frac{1}{2}-\frac{1}{b}\right)-\frac{q^2}{2},
+\]
+which is positive for $b\ge4$ since $q^2\le bq$ (at $b=4,q=0$ it equals
+$3/4$). For $b=j=3$, the value is nonnegative at every allowed point
+except the real intersection point for $(r,a,\varepsilon)=(3,9,1)$:
+indeed, $(3,10,0)$ gives $2/3$ and $(4,12,0)$ gives $16/11$ (and valid
+mixed cases with $r=4$ have $a\ge13$). At $(r,a,\varepsilon)=(3,9,1)$,
+the real minimum is $-5/8$ at $n_0=225/8$, with slopes $-5$ and $3$, so
+the two nearest integers $n=28$ and $n=29$ give gaps $0$ and $2$,
+respectively. Thus no integer $n$ produces a strict excess.
+\end{proof}
+
+\section{Proof of the connected theorem}\label{sec:connected}
+
+P\'osa-type degree conditions for embedding forests were investigated by
+Babu and Diwan~\cite{BabuDiwan}. To finish the connected case, we need a
+sharper structural description of a non-traceable graph containing a
+dense core.
+
+\begin{proposition}\label{prop:posa-structure}
+Let $a\ge1$, and let $Q$ be a graph of order $m=2a+r$ with
+$V(Q)=R\dot\cup U$, where $|R|=a+t$ and $1\le|U|=d=a+r-t\le a$. Assume
+that $\delta(Q[R])\ge a$ and $d_Q(u)\ge d$ for every $u\in U$. Set
+$\lambda=\binom{|R|}{2}-e(R)$, and suppose
+$\lambda+\Delta\le\binom{t+1}{2}-\varepsilon-1$ for some
+$\Delta,\varepsilon\ge0$. If $Q$ has no Hamiltonian path, then there
+exist an integer $s$ with $1\le s\le\lfloor r/2\rfloor$ and a partition
+$R=L\dot\cup S$ such that
+\[
+ |L|=t-r+s,\qquad |S|=a+r-s,\qquad a\le d_R(x)\le a+s-1\quad(x\in L).
+\]
+Putting $\ell=|L|$, $H_0=\sum_{x\in L}(a+s-1-d_R(x))$, and
+$\lambda_S=\binom{|S|}{2}-e(S)$, we have
+\begin{equation}\label{eq:posa-count}
+ \lambda=\binom{\ell}{2}+\ell(r-2s+1)+H_0+e(L)+\lambda_S.
+\end{equation}
+In particular, writing $c=|R|$,
+\begin{equation}\label{eq:posa-endpoints}
+ \lambda\ge\min\left\{
+ \frac{(a-d)(2c+d-3a+1)}{2},\,
+ \frac{(c-d)(c-d+2)}{8}\right\}.
+\end{equation}
+Moreover:
+\begin{enumerate}
+\item[(i)] If $r=2$ and $t\ge7$, then the Hamiltonian-path closure of
+$Q$ contains a set $A\subseteq R$ of $a$ universal vertices, and
+$V(Q)\setminus A$ is independent in $Q$.
+\item[(ii)] If $r=3$ and $t\ge8$, then the Hamiltonian-path closure of
+$Q$ contains a set $A\subseteq R$ of $a$ universal vertices, and
+$e(Q[V(Q)\setminus A])\le1$.
+\item[(iii)] If $r=4$ and $t\ge14$, then $Q$ contains a set $W$ of
+order $a+3$ with $e(Q[W])\le1$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+We first note a quick linear-forest bound. Let $J$ be a graph of maximum
+degree $\Delta(J)\le h+2$ ($h\ge1$), and let $C\subseteq V(J)$ be a set
+of vertices of degree at least $h$ in $J$. Then a maximum-edge spanning
+linear forest of $J$ has at least $|C|/2$ edges, and strictly more than
+$|C|/2$ edges when $C\ne\varnothing$, $h=2$, and $\Delta(J)\le3$.
+Indeed, let such a forest have $E$ edges, $p$ nontrivial path
+components, and $z$ isolated vertices lying in $C$. By maximality, every
+neighbor of an isolated vertex is an internal vertex of the forest.
+Counting unused incidences at internal vertices gives $hz\le h(E-p)$, so
+$|C|\le z+E+p\le2E$. When $h=2$ and $\Delta(J)\le3$, each internal
+vertex has only one unused incidence, giving $2z\le E-p$ and
+$|C|\le(3E+p)/2\le2E$; equality would force $p=E$, $z=0$, and all
+nonisolated vertices to form a matching inside $C$, which is impossible
+because every vertex of $C$ has degree at least $2$ in $J$, allowing the
+forest to be extended.
+
+Now adjoin a new universal vertex to $Q$. Since $Q$ has no Hamiltonian
+path, the enlarged graph is not Hamiltonian, so P\'osa's theorem yields
+an integer $i<(m+1)/2$ such that at least $i$ vertices have degree at
+most $i$ in the enlarged graph. In this graph, vertices of $R$ have
+degree at least $a+1$, vertices of $U$ have degree at least $d+1$, and
+the new vertex has degree $m$. Hence $i>d$, and $i\le a$ is impossible
+because only the $d<i$ vertices of $U$ could qualify. Thus $i=a+s$ for
+some $1\le s\le\lfloor r/2\rfloor$.
+
+At least $i-d=t-r+s$ of these low-degree vertices belong to $R$. Pick
+any $\ell=t-r+s$ of them to form $L$, and set $S=R\setminus L$. Since
+$a\le d_R(x)\le a+s-1$ for all $x\in L$, we have
+$2e(L)+e(L,S)=\ell(a+s-1)-H_0$, and subtracting $e(S)+e(L,S)+e(L)$ from
+$\binom{|R|}{2}$ gives \eqref{eq:posa-count}. Dropping $H_0$, $e(L)$,
+and $\lambda_S$ yields $\lambda\ge(i-d)(2c+d-3i+1)/2$, a concave
+quadratic in $i$ whose values at the endpoints $i=a$ and $i=m/2$ are the
+two terms in \eqref{eq:posa-endpoints}.
+
+For $r\in\{2,3,4\}$, substituting \eqref{eq:posa-count} into the upper
+bound on $\lambda+\Delta$ gives:
+\begin{align}
+ r\in\{2,3\},\ s=1:\quad
+ &\lambda=\binom{t}{2}-r+2+e(L)+\lambda_S,
+ && \Delta+e(L)+\lambda_S\le t+r-3-\varepsilon, \label{eq:budget23}\\
+ r=4,\ s=2:\quad
+ &\lambda=\binom{t-1}{2}+H_0+e(L)+\lambda_S,
+ && \Delta+H_0+e(L)+\lambda_S\le2t-\varepsilon-2, \label{eq:budget42}\\
+ r=4,\ s=1:\quad
+ &\lambda=\binom{t}{2}-3+e(L)+\lambda_S,
+ && \Delta+e(L)+\lambda_S\le t+2-\varepsilon. \label{eq:budget41}
+\end{align}
+
+Next, perform the following closure operation starting from $Q$:
+whenever a nonuniversal vertex $x$ reaches current degree at least
+$a+r-1$, first add all missing edges from $x$ to $R$ (valid because
+$d(x)+d(y)\ge(a+r-1)+a=m-1$ for every $y\in R$), and then add all
+missing edges from $x$ to $U$ (valid because after the first step
+$d(x)\ge|R|-1$ if $x\in R$ and $d(x)\ge|R|$ if $x\in U$, so
+$d(x)+d(u)\ge m-1$ for every $u\in U$). Each such vertex $x$ thus
+becomes universal. Stop when no such vertex remains, let $A$ be the set
+of all universal vertices in the resulting graph (including those
+already universal in $Q$), and set $W=V(Q)\setminus A$. Every added edge
+is incident with $A$, so $Q[W]$ is unchanged and every vertex of $W$ has
+final degree at most $a+r-2$.
+
+Put $p=|S\setminus A|$, and for $x\in S$ let
+$\mu_S(x)=|S|-1-d_S(x)$. Every $x\in S\setminus A$ satisfies
+$d_L(x)\le s-1+\mu_S(x)$ (otherwise $d_R(x)>a+r-2$). In $Q[R]$, the
+number of nonedges between $S$ and $L$ is $\ell(r-2s+1)+H_0+2e(L)$,
+while $A\cap S$ contributes at most $(|S|-p)\ell$ edges to $L$. Summing
+the bound on $d_L(x)$ over $S\setminus A$ and using
+$\sum_{x\in S}\mu_S(x)=2\lambda_S$ yields
+\begin{equation}\label{eq:universal-count}
+ (p-r+2s-1)\ell\le p(s-1)+H_0+2e(L)+2\lambda_S.
+\end{equation}
+When $r\in\{2,3\}$, subtracting $2\ell$ from \eqref{eq:universal-count}
+and applying \eqref{eq:budget23} gives
+$(p-r-1)\ell\le4r-8-2\varepsilon-2\Delta$; since $\ell=t-r+1\ge6$, this
+forces $p\le r+1$ and $|A|\ge a-2$. When $r=4$ and $s=2$, subtracting
+$4\ell$ and using \eqref{eq:budget42} gives
+$(p-5)\ell\le p+4-2\varepsilon-2\Delta-H_0$, which with $\ell=t-2\ge12$
+forces $p\le5$ and $|A|\ge a-3$. When $r=4$ and $s=1$,
+\eqref{eq:budget41} gives $(p-5)\ell\le10-2\varepsilon-2\Delta$, and
+$\ell=t-3\ge11$ again forces $p\le5$ and $|A|\ge a-2$.
+
+We claim that $|A|\ge a$. Suppose $|A|=a-h$ with $h\ge1$. Then
+$\Delta(Q[W])\le h+r-2$, and all $|R|-|A|=t+h$ vertices of $R\cap W$
+have degree at least $h$ in $Q[W]$. Let $E$ be the maximum number of
+edges in a spanning linear forest of $Q[W]$. Since $Q$ has no
+Hamiltonian path, the closure cannot link the components of this forest
+through $A$, so the forest must have more than $|A|+1$ components,
+giving $E\le|W|-|A|-2=2h+r-2$. Applying our initial linear-forest bound
+to $C=R\cap W$ in $Q[W]$ gives a contradiction in every case:
+$t+h\le2E\le4h$ ($h\le2$) contradicts $t\ge7$ for $r=2$;
+$t+h\le2E\le4h+4$ ($h\le3$) contradicts $t\ge14$ for $r=4$; and for
+$r=3$, $h=1$ gives $t+1\le6$ while $h=2$ (using the strict form) gives
+$t+2<10$, both contradicting $t\ge8$. Hence $|A|\ge a$.
+
+If $r\in\{2,3\}$, then $|A|\ge a+1$ would leave $|W|\le|A|+1$ singletons
+and yield a Hamiltonian path, so $|A|=a$. Likewise, $Q[W]$ can have no
+edge when $r=2$ and at most one edge when $r=3$ (two edges would form a
+two-edge linear forest with at most $|A|+1$ components). Furthermore,
+$A\subseteq R$: if $A\cap U\ne\varnothing$, then $|A\cap R|\le a-1$, and
+picking a vertex $x\in R\cap W$ isolated in $Q[W]$ (which exists since
+$|R\cap W|\ge t+1\ge9$ when $r=3$, and $Q[W]$ is independent when $r=2$)
+gives $d_R(x)\le|A\cap R|\le a-1$, contradicting $\delta(Q[R])\ge a$.
+This proves (i) and (ii).
+
+Finally, let $r=4$. We cannot have $|A|\ge a+2$. If $|A|=a+1$, then
+$|W|=a+3$ and $W$ is independent (any edge in $Q[W]$ would leave at most
+$|A|+1$ path components). If $|A|=a$, then $|W|=a+4$,
+$\Delta(Q[W])\le2$, and $Q[W]$ has no three-edge linear forest, so its
+nonisolated part is one of $P_2$, $2P_2$, $P_3$, or $K_3$; deleting one
+suitable vertex leaves an $(a+3)$-subset spanning at most one edge,
+proving (iii).
+\end{proof}
+
+\subsection{Path factors in the original graph}
+
+We will make repeated use of two routine consequences of Hall's theorem.
+\begin{enumerate}
+\item[(H1)] Let $M\ge6$. Suppose $M$ positions are to be filled by $M$
+distinct vertices such that each vertex is forbidden from at most $2$
+positions, except that at most two vertices may be forbidden from at
+most $4$ positions, and every position accepts at least $2$ vertices.
+Then a valid assignment exists.
+\item[(H2)] Suppose $M$ positions are to be filled by $M$ distinct
+vertices such that each vertex is forbidden from at most $q$ positions.
+If either every position accepts at least $q$ vertices, or there is a
+fixed set of at least $q$ vertices acceptable at every position, then a
+valid assignment exists.
+\end{enumerate}
+Both follow immediately from Hall's condition for any nonempty set
+$\mathcal{S}$ of positions: in (H1), the union of available vertices has
+size at least $2$ for $|\mathcal{S}|\le2$, at least $M-2\ge|\mathcal{S}|$
+for $3\le|\mathcal{S}|\le M-2$, and $M$ for $|\mathcal{S}|\ge M-1>4$; in
+(H2), the union has size at least $q$ for $|\mathcal{S}|\le q$ and $M$
+for $|\mathcal{S}|>q$.
+
+\begin{theorem}\label{thm:factor-from-W}
+Let $F$ be a linear forest with $r\in\{3,4\}$ odd components of orders
+at least $2b+1\ge5$, even components of orders at least two, and
+matching number $a$. Assume $1\le d\le b$ if $r=3$, and $b\ge3$ with
+$1\le d\le\lfloor b/2\rfloor$ if $r=4$. Let $Q$ be a graph with
+$V(Q)=R\dot\cup U$, where $|R|=2a+r-d$, $|U|=d$, $\delta(Q[R])\ge a$,
+and $d_Q(u)\ge\kappa:=\lceil(a+d+2r-5)/2\rceil$ for all $u\in U$. If $Q$
+contains a set $W$ of order $a+3$ with $e(Q[W])\le1$, then $Q$ has a
+spanning copy of $F$.
+\end{theorem}
+\begin{proof}
+Set $\tau=r-3$ and $A=V(Q)\setminus W$, so $|A|=a+\tau$. Since
+$|W\cap R|\ge a+3-d$, we have $|W\cap R|\ge7$ when $r=3$ and
+$|W\cap R|\ge14$ when $r=4$. Because $e(Q[W])\le1$, some vertex
+$v\in W\cap R$ is isolated in $Q[W]$; its at least $a$ neighbors in $R$
+all lie in $A\cap R$, so $|A\cap R|\ge a$ and $|A\cap U|\le\tau$.
+
+We construct the components of $F$ using alternating templates whose
+\emph{$X$-positions} are filled by vertices of $A$ and whose
+\emph{$Z$-positions} are filled by vertices of $W$ (with some
+$Z$-positions pre-filled by $U$): an odd path $P_{2h+1}$ takes either
+$Z_0X_1Z_1\cdots X_hZ_h$ ($h$ $X$-positions, $h+1$ $Z$-positions) or
+$X_0Z_1X_1\cdots Z_hX_h$ ($h+1$ $X$-positions, $h$ $Z$-positions), while
+an even path $P_{2h}$ takes $Z_0X_1\cdots Z_{h-1}X_h$. Replacing an
+adjacent pair $XZ$ by $XZ'X'Z$ extends any initial template using at
+most $b$ vertices of $A$ to any prescribed odd order at least $2b+1$,
+keeping every unfilled $Z$-position adjacent only to $X$-positions.
+
+\medskip\noindent\emph{Case 1. $A\subseteq R$.}\ 
+Set $B=R\setminus A$, $M=|B|=a+3-d$, and $\mu(x)=|B\setminus N_Q(x)|$
+for $x\in A$. For every $v\in B$, $\delta(Q[R])\ge a$ gives
+$|A\setminus N_Q(v)|\le\tau+d_B(v)$; summing over $B$ and using
+$e(Q[W])\le1$ gives
+\begin{equation}\label{eq:missing-sum}
+ \sum_{x\in A}\mu(x)\le\tau M+2,
+\end{equation}
+and for every $x\in A$,
+\begin{equation}\label{eq:internal-degree}
+ d_{Q[A]}(x)\ge a-(M-\mu(x))=\mu(x)+d-3.
+\end{equation}
+If some pair $x,y\in A$ satisfies $\mu(x)+\mu(y)\ge M-1$, then
+\eqref{eq:missing-sum} forces $\tau=1$; pick $z\in A$ maximizing
+$\mu(z)$. Since $M\ge14$, we have $\mu(z)\ge\lceil(M-1)/2\rceil\ge7$,
+$\sum_{x\in A\setminus\{z\}}\mu(x)\le M-2$, and
+$d_{Q[A]}(z)\ge d+2$ by \eqref{eq:internal-degree}. If no such pair
+exists, we leave $z$ unselected, and $\mu(x)+\mu(y)\le M-2$ for all
+$x,y\in A$.
+
+List $U=\{u_1,\ldots,u_d\}$. Each $u_i$ has at most one neighbor in $W$,
+so $|N_A(u_i)|\ge\kappa-1$, and for $1\le i<d$,
+\[
+ |N_A(u_i)\cap N_A(u_{i+1})|\ge2(\kappa-1)-|A|
+ \ge\begin{cases}d-1, & r=3,\\ d, & r=4.\end{cases}
+\]
+Setting $\mathcal{C}_i=(N_A(u_i)\cap N_A(u_{i+1}))\setminus\{z\}$
+(deleting $z$ only if it was selected), each of the $d-1$ sets
+$\mathcal{C}_i$ has size at least $d-1$, so Hall's theorem gives
+distinct $c_i\in\mathcal{C}_i$. Since $\kappa-d\ge1$ for $r=3$ and
+$\kappa-d-1\ge1$ for $r=4$, we can also choose
+$c_d\in N_A(u_d)\setminus\{c_1,\ldots,c_{d-1},z\}$. Appending an
+unfilled $Z$-position $Z_\ast$ yields the initial template
+\begin{equation}\label{eq:outside-path}
+ u_1c_1u_2c_2\cdots u_dc_dZ_\ast,
+\end{equation}
+which absorbs all of $U$ using $d\le b$ vertices of $A$ and therefore
+extends to one prescribed odd component.
+
+If $z$ was selected, pick two unused neighbors $v_1,v_2\in N_A(z)$
+(possible since $d_{Q[A]}(z)\ge d+2$) and start a second odd component
+with $Z_1v_1zv_2Z_2$, so that $z$ is not adjacent to any unfilled
+$Z$-position. If $\tau=1$ and no $z$ was selected, give a second odd
+component one more $X$-position than $Z$-positions. Give every remaining
+odd component one more $Z$-position than $X$-positions, and every even
+component equal numbers of each. The total counts of $X$- and
+$Z$-positions are then $a+\tau=|A|$ and $a+3=|W|$.
+
+Assign the unused vertices of $A$ to the remaining $X$-positions. There
+remain $M=|B|\ge7$ unfilled $Z$-positions, none adjacent to $z$. Any
+unfilled $Z$-position has at most two adjacent $A$-vertices $x,y$, which
+forbid at most $\mu(x)+\mu(y)\le M-2$ vertices of $B$, so every position
+accepts at least $2$ vertices of $B$. Conversely, each vertex of $B$
+misses at most $\tau$ vertices of $A$ (at most $\tau+1$ for the at most
+two endpoints of the possible edge in $Q[B]$), and each $X$-position
+touches at most two unfilled $Z$-positions; thus every ordinary vertex
+of $B$ is forbidden from at most $2$ positions and the at most two
+exceptions from at most $4$. Applying (H1) completes the spanning copy
+of $F$.
+
+\medskip\noindent\emph{Case 2. $A\cap U\ne\varnothing$.}\ 
+Here $r=4$, so we write $A=C\dot\cup\{y\}$ with $y\in U$ and $|C|=a$,
+and put $X=U\setminus\{y\}$ and $B=R\setminus C$. Every $v\in B$
+satisfies $|C\setminus N_Q(v)|\le d_B(v)\le1$, so all vertices of $B$
+except at most two are adjacent to all of $C$, and each exception misses
+just one vertex of $C$. For every $x\in X$, at most one neighbor lies in
+$W$ and at most one is $y$, giving
+\begin{equation}\label{eq:X-degree}
+ |N_C(x)|\ge\kappa-2
+\end{equation}
+and, for distinct $x,x'\in X$,
+\begin{equation}\label{eq:X-common}
+ |N_C(x)\cap N_C(x')|\ge2(\kappa-2)-a\ge d-1.
+\end{equation}
+
+If $d=1$, pick any neighbor $w$ of $y$. If $w\in C$, then
+$d_R(w)\ge a$ implies $w$ has a neighbor $z\in B$, and we start with
+$ywz$; if $w\in B$, then $|C\setminus N_Q(w)|\le1$ gives $c\in N_C(w)$,
+and we start with $ywc$.
+
+Suppose $d\ge2$. Pick a neighbor $w$ of $y$, and list
+$X=\{x_1,\ldots,x_{d-1}\}$, setting $x_1=w$ if $w\in X$. By
+\eqref{eq:X-common} and Hall's theorem, we can pick distinct common
+neighbors $c_i\in N_C(x_i)\cap N_C(x_{i+1})$ to form
+$P=x_1c_1x_2c_2\cdots c_{d-2}x_{d-1}$, avoiding any one prescribed vertex
+of $C$ if desired (since $d-2$ choices remain in each set). Using
+\eqref{eq:X-degree}, $a\ge4b$, and $d\le b/2$, we start one odd
+component as follows:
+\begin{itemize}
+\item If $w\in C$, build $P$ avoiding $w$, choose distinct unused
+vertices $v\in N_C(x_1)$ and $u\in N_C(x_{d-1})$ (using
+$\kappa-d-2\ge1$), and start with $ywZ_\ast vPuZ'_\ast$ (using
+$d+1\le b$ vertices of $C$).
+\item If $w\in B$, pick $v\in N_C(w)\cap N_C(x_1)$ (size at least
+$\kappa-3$), build $P$ avoiding $v$, pick an unused $u\in N_C(x_{d-1})$,
+and start with $ywvPu$ (using $d$ vertices of $C$ and $w\in B$).
+\item If $w\in X$, take $x_1=w$, build $P$, pick an unused
+$u\in N_C(x_{d-1})$, and start with $yPu$ (using $d-1$ vertices of
+$C$).
+\end{itemize}
+Extend this initial template to one odd component, give the other three
+odd components one more $Z$-position than $C$-positions, and give every
+even component equal numbers of each; the totals are $a=|C|$ and $a+4$.
+After filling the remaining $C$-positions arbitrarily from $C$, the
+remaining $M\ge14$ vertices of $B$ match the $M$ unfilled $Z$-positions:
+all but at most two vertices of $B$ can fill any position, and each
+exception is forbidden from at most $2$ positions. Applying (H2) with
+$q=2$ completes the spanning copy of $F$.
+\end{proof}
+
+Path partitions with prescribed endpoints were studied by Enomoto and
+Ota~\cite{EnomotoOta} and Kawarabayashi~\cite{Kawarabayashi}. We need
+the following near-complete-core variant.
+
+\begin{lemma}\label{lem:rooted-completion}
+Let $a\ge6$ and $s\in\{1,2\}$, and let $R$ be a graph of order $2a+s$
+with $\delta(R)\ge a$ and
+$\binom{2a+s}{2}-e(R)\le\binom{a+s+1}{2}-1$.
+\begin{enumerate}
+\item[(i)] For any $x\in V(R)$, either $R$ has a Hamiltonian path
+starting at $x$, or $V(R)=A\dot\cup B$ with $|A|=a$, $|B|=a+s$,
+$e(R[B])\le s-1$, every vertex of $B$ missing at most $s-1$ vertices of
+$A$, and all but at most two vertices of $B$ adjacent to all of $A$.
+Moreover, $x\in A$ when $s=1$.
+\item[(ii)] Let $F$ be a linear forest with $r\in\{3,4\}$ odd components
+of orders at least five, even components of orders at least two, and
+matching number $a$, where $(r,s)\in\{(3,1),(4,1),(4,2)\}$. If a new
+path $z_1\cdots z_{r-s}$ is attached to $R$ by the single edge
+$z_{r-s}x$ for a prescribed $x\in V(R)$, then the resulting graph has a
+spanning copy of $F$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For (i), attach a pendant leaf $z$ to $x$. If the new graph has a
+Hamiltonian path, deleting $z$ leaves a Hamiltonian path of $R$ starting
+at $x$. Otherwise apply Proposition~\ref{prop:posa-structure} with
+$(r,t,d,\Delta,\varepsilon)=(s+1,a+s,1,0,0)$ to obtain $A\subseteq V(R)$
+of size $a$ such that the complement (including $z$) spans at most $s-1$
+edges. Setting $B=V(R)\setminus A$, each $v\in B$ has
+$d_A(v)\ge a-d_B(v)\ge a-(s-1)$, and since $2e(R[B])\le2$, at most two
+vertices of $B$ have neighbors in $B$. When $s=1$, $B\cup\{z\}$ is
+independent, so $xz\in E$ forces $x\in A$.
+
+For (ii), if $R$ has a Hamiltonian path starting at $x$, prepending
+$z_1\cdots z_{r-s}$ yields a spanning path of order $2a+r$, which splits
+into $F$. Otherwise take the partition $V(R)=A\dot\cup B$ from (i), and
+let $Z$ denote an unfilled $B$-position. Start one odd component with
+$z_1z_2x$ when $r-s=2$ and $x\in A$ (covering $(r,s)=(3,1)$ and
+$(4,2)$ with $x\in A$), with $z_1z_2z_3xZ$ when $r-s=3$ (so $s=1$ and
+$x\in A$), and with $z_1z_2xyZ$ for some $y\in N_R(x)\cap A$ when
+$(r,s)=(4,2)$ and $x\in B$ (possible since $x$ misses at most one vertex
+of $A$).
+
+Extend this initial path by alternating unused vertices of $A$ and
+unfilled $B$-positions. If the initial path has three more vertices
+outside $A$ than inside $A$, give one other odd component one more
+$A$-position than $B$-positions, every remaining odd component one more
+$B$-position, and every even component equal numbers of each; if it has
+only one more vertex outside $A$, give every remaining odd component one
+more $B$-position. In all cases $a$ positions are filled from $A$, and
+$M=a+s-\theta\ge a\ge6$ unfilled $B$-positions remain (where $\theta=1$
+if $x\in B$ was already used, and $\theta=0$ otherwise). All but at most
+two remaining vertices of $B$ can fill every position, and each
+exception is forbidden from at most $2$ positions, so (H2) with $q=2$
+completes the spanning copy of $F$.
+\end{proof}
+
+\subsection{Paths using few vertices of the core}
+
+\begin{proposition}\label{prop:no-low-core-path}
+Let $H$ be a linear forest with $r\ge3$ odd components, no isolated
+vertices, and shortest odd component $P_{2b+1}$, and suppose $H$ is not
+a union of copies of $P_3$. Put $a=\nu(H)$, $m=2a+r$, and
+$K=\binom{m-1}{2}$, and let $\varepsilon=1$ if all components of $H$ are
+odd and $\varepsilon=0$ otherwise. Let $G$ be a connected $H$-free graph
+of order $n\ge m$ with $e(G)>\max\{K,J_a(n)+\varepsilon\}$. Assume that
+the connected bound for $H-P_{2b+1}$ holds with terms $B_{m-2b-1}$ and
+$J_{a-b}+\varepsilon$ (and with $\binom{m-2b-2}{2}$ in place of
+$B_{m-2b-1}$ if $H$ has a $P_2$ component). Then no copy of $P_{2b+1}$
+in $G$ uses at most $b$ vertices of the $a$-core $R$ from
+Proposition~\ref{prop:core}.
+\end{proposition}
+\begin{proof}
+Write $|R|=a+t$. By Proposition~\ref{prop:core}, $t\ge2+\varepsilon$
+and deleting at most $b$ vertices from $R$ leaves a connected subgraph
+of order at least $a+t-b\ge2b+2$. Also $a>2b+1$ (as $a\ge rb$ and
+$H\ne rP_3$). Every value of $\eta$ used below therefore satisfies
+$|Q|>\eta+1$, $1/2\le\eta<a-b-1$, and $0<b+\eta<a-1$ in
+Lemma~\ref{lem:residual}.
+
+Assume for a contradiction that $G$ has a $P_{2b+1}$ using at most $b$
+vertices of $R$, and let $j$ be the minimum number of vertices of $R$
+used by such a path. Lemma~\ref{lem:positive-core-use} rules out $j>0$,
+so $j=0$, meaning that $G-R$ contains $P_{2b+1}$.
+
+Apply Theorem~\ref{thm:rooted-deletion} with parameter $b$ and $D=a-1$,
+which gives error term $A=\max\{0,3b^2+3b+1-ba\}$. Put
+$f=(r(r+1)-2\varepsilon)/(a-1)$ and $s_0=bt+\binom{b+1}{2}$. By
+Lemma~\ref{lem:residual}, the minimum gap against $K$ (before $I$) is
+\[
+ \Psi:=\Gamma_r(b,b)+s_0-A=a+bt+r-(r+1)b-1-bf-A,
+\]
+while the gap against the join term is $s_0-A$. For fixed $r$ and $b$,
+$\Psi(a+1)-\Psi(a)=1+b[r(r+1)-2\varepsilon]/(a(a-1))+A(a)-A(a+1)>0$;
+increasing $t$ by $1$ adds $b$ to $\Psi$, and changing $\varepsilon$
+from $0$ to $1$ adds $2b/(a-1)$, without decreasing $s_0-A$. We may
+thus check boundary values in three cases.
+
+\medskip\noindent\emph{Case 1. $r\ge4$ and $b\ge2$.}\ 
+Here $A\le3<s_0$. At $(a,t,\varepsilon)=(rb+1,2,0)$,
+$\Psi=b-1-\max\{0,(3-r)b^2+2b+1\}\ge0$, covering all mixed forests and
+all-odd forests with unequal odd components. When all components are
+equal odd paths, we have $a=rb$ and $t\ge3$, giving
+$\Psi=2b-2-(r+1-2b)/(br-1)-A>2b-2-1/b-A$; this is nonnegative since
+$A\le1$ for $b\ge3$ and $A=0$ for $b=2,r\ge5$.
+
+The remaining case $H=4P_5$ ($r=4,b=2,a=8,\varepsilon=1$) is handled by
+including $I$ from Lemma~\ref{lem:residual}: before $I$, the gap is
+$2t-50/7$, while $I=3(21-\binom{t+1}{2})/13$ for $3\le t\le6$ and
+$I=3(t-6)/2$ for $t\ge6$. The sum is concave on $[3,6]$ with endpoint
+values $211/91$ and $34/7$, and increases for $t\ge6$.
+
+\medskip\noindent\emph{Case 2. $r\ge4$ and $b=1$.}\ 
+Since $H$ is not a union of copies of $P_3$, $a\ge r+1$. If $a\ge r+2$,
+monotonicity gives $\Psi\ge2-\max\{0,5-r\}>0$. If $a=r+1$, then
+$H=P_2\cup rP_3$ ($\varepsilon=0$) or $H=P_5\cup(r-1)P_3$
+($\varepsilon=1$), so Lemma~\ref{lem:residual} applies with
+$\xi=\varepsilon/2$. Putting $z=2r-3$ and $A=\max\{0,6-r\}$, the gap
+with $I$ on $2+\varepsilon\le t\le z$ is
+\[
+ t-2+\frac{2\varepsilon}{r}-A
+ +\frac{2-\varepsilon}{2r-\varepsilon}
+ \left[\binom{2r-2}{2}-\binom{t+1}{2}\right],
+\]
+which is concave in $t$, while for $t\ge z$ it is increasing. For
+$\varepsilon=0$, both endpoints equal $2r-5-A\ge1$; for $\varepsilon=1$,
+they are $r-1+2/r-5/(2r-1)-A\ge11/14$ and $2r-5+2/r-A\ge3/2$, both
+increasing for $r\ge4$. Meanwhile $s_0-A=t+1-A\ge1$.
+
+\medskip\noindent\emph{Case 3. $r=3$.}\ 
+Set $x=a-3b$. If $x\ge3$, Theorem~\ref{thm:rooted-deletion} at the
+boundary $(a,t,\varepsilon)=(3b+3,2,0)$ has $A=1<s_0$ and
+$\Psi=b+4-12b/(3b+2)>0$.
+
+Suppose $x\le2$, and let $2(b+u)+1$ be the order of the second shortest
+odd component, so $u\in\{0,1\}$ (if $u=1$, then $a\ge3b+2$, forcing
+$x=2$ and $\varepsilon=1$). Let $L=H-P_{2b+1}-P_{2(b+u)+1}$. Then
+$|L|=2(a-2b-u)+1$ and $|R|-|L|=b-x+t+2u-1\ge0$, so
+Lemma~\ref{lem:dirac-path} embeds $L$ into $R$. Delete a $P_{2b+1}$ from
+$G-R$ using Lemma~\ref{lem:ordered-deletion}(iv) with $w(y)=d_R(y)$ and
+$D=a-1$ (introducing no error term $A$). The remaining graph outside $R$
+must be $P_{2(b+u)+1}$-free, as a copy of $P_{2(b+u)+1}$ there would
+combine with the deleted $P_{2b+1}$ and $L\subseteq R$ to form $H$.
+Applying Lemma~\ref{lem:residual} with $\eta=b+u-1/2$ gives gap
+\[
+ bt+\left(\frac{5}{4}-\frac{u}{2}\right)a-4b-3u+\frac{7}{2}
+ -\left(b+\frac{u}{2}-\frac{1}{4}\right)f.
+\]
+Using $f\le4/b$, this is at least $7b/4-1/2+1/b>0$ when $u=0$; when
+$u=1$, using $t\ge3$, $a=3b+2$, and $f=10/(3b+1)$ yields
+$[15(b-1)^2+19(b-1)+2]/[4(3b+1)]>0$, while $s_0\ge0$ covers the join
+term. Every case contradicts $e(G)>\max\{K,J_a(n)+\varepsilon\}$.
+\end{proof}
+
+\begin{lemma}\label{lem:uniform-lines}
+Let $r\ge3$, $b\ge2$, $a\ge rb$, $\varepsilon\in\{0,1\}$, and
+$2\le d\le2b-1$. Put
+\[
+ m=2a+r,\quad K=\binom{m-1}{2},\quad
+ f=\frac{r(r+1)-2\varepsilon}{a-1},\quad
+ n_0=\frac{5a+4r-2+f}{2},
+\]
+so that $K=J_a(n_0)+\varepsilon$, and let
+$M_0(x)=\max\{K,J_a(x)+\varepsilon\}$. For $1\le h\le d-1$, define
+\[
+ \sigma_h=d-1+\frac{h-1}{2},\qquad
+ F_h(x)=\binom{m-d}{2}+(d-1)(a-1)+\sigma_h(x-m+1).
+\]
+Setting $h_+=\min\{b,d-1\}$ and $h_-=\min\{b-1,d-1\}$, we have for every
+real $x$,
+\begin{equation}\label{eq:uniform-lines}
+ F_{h_+}(x)<M_0(x)+4,\qquad F_{h_-}(x)<M_0(x).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Put $g_h=K-F_h(n_0)$. Direct subtraction gives
+\begin{equation}\label{eq:gh}
+ 4g_h=a(2d-h-1)-2d(d-1)-2r(h-1)-(2d+h-3)f.
+\end{equation}
+Since $\partial(4g_h)/\partial a=2d-h-1+(2d+h-3)[r(r+1)-2\varepsilon]/(a-1)^2>0$
+and setting $\varepsilon=0$ maximizes $f$, the minimum of $g_h$ occurs
+on the boundary $a=rb,\varepsilon=0$. Along this boundary,
+$f=r(r+1)/(br-1)$ satisfies $df/dr=(br^2-2r-1)/(br-1)^2<1/b$, whence
+$d(4g_h)/dr>b(2d-h-1)-2(h-1)-(2d+h-3)/b$. This lower bound decreases in
+$h$, so it is minimized at $h=h_+$, where it is piecewise linear in $d$
+on $[2,b+1]$ and $[b+1,2b-1]$ with positive endpoint values $2b-2/b$ and
+$(b-1)(b^2-1)/b$. Thus $g_{h_+}$ and $g_{h_-}$ both increase with $r$.
+
+Setting $r=3$, $u=b-2\ge0$, and $D=4(3b-1)$, the expression
+\eqref{eq:gh} is a concave quadratic in $d$ on each subinterval where
+$h_+$ or $h_-$ is constant or equals $d-1$. Evaluating at the endpoints
+gives
+\[
+\begin{aligned}
+ Dg_1\big|_{d=2} &= 2(3u+1)(3u+8),\\
+ 4\bigl(g_b\big|_{d=b+1}+4\bigr) &= u^2-u+4,\\
+ D\bigl(g_b\big|_{d=2b-1}+4\bigr) &= 3u^3+8(u-1)^2+9u+12,\\
+ Dg_{b-1}\big|_{d=b} &= 3u(u-1)(u+1)+5(u-1)^2+u+11,\\
+ Dg_{b-1}\big|_{d=2b-1} &= (u+6)(3u^2-u+2),
+\end{aligned}
+\]
+all strictly positive for $u\ge0$. By concavity, $g_{h_+}>-4$ and
+$g_{h_-}>0$ for all $2\le d\le2b-1$. Finally,
+$0<\sigma_h\le(5b-5)/2<a-1$, so $M_0(x)-F_h(x)$ attains its minimum at
+$x=n_0$, yielding \eqref{eq:uniform-lines}.
+\end{proof}
+
+\begin{proposition}\label{prop:exists-low-core-path}
+Let $H$ be a linear forest with $r\ge3$ odd components, no isolated
+vertices, and shortest odd component $P_{2b+1}$, and suppose $H$ is not
+a union of copies of $P_3$. Put $a=\nu(H)$, $m=2a+r$, and
+$K=\binom{m-1}{2}$, and let $\varepsilon=1$ if all components of $H$ are
+odd and $\varepsilon=0$ otherwise. Define
+$M(n)=\max\{K,J_a(n)+\varepsilon\}$, except that $K$ is replaced by
+$B_m(n)$ when $\varepsilon=1$, $r\in\{3,4\}$, and $b\ge2$. If $G$ is a
+connected $H$-free graph of order $n\ge m$ with $e(G)>M(n)$, then $G$
+contains a copy of $P_{2b+1}$ using at most $b$ vertices of the $a$-core
+$R$ from Proposition~\ref{prop:core}.
+\end{proposition}
+\begin{proof}
+Suppose for a contradiction that every $P_{2b+1}$ in $G$ uses at least
+$b+1$ vertices of $R$. Let $Y=V(G)\setminus R$ with its deletion order
+from Proposition~\ref{prop:core}, write $c=|R|=a+t=m-d$ and $N=|Y|$, and
+let $\lambda,\Delta$ be as before.
+
+If $b=1$, then $a\ge r+1$. Because every $P_3$ uses at least two
+vertices of $R$, $Y$ is independent and every vertex of $R$ has at most
+one neighbor in $Y$, giving $e(G)\le\binom{c+1}{2}-\lambda$. From
+$e(G)>K$ we obtain $c=m-1$ and $\lambda<c$. Pick a vertex of $Y$
+adjacent to $R$ and add it to $R$; the resulting $m$-vertex graph has no
+Hamiltonian path (else it contains $H$). Proposition~\ref{prop:posa-structure}
+with $d=1$ then yields
+$\lambda\ge\min\{(a-1)(a+2r)/2,(c^2-1)/8\}>c$ (using $a\ge r+1$,
+$r\ge3$, and $c\ge10$), a contradiction. Thus $b\ge2$, so $a\ge rb$ (and
+$a\ge rb+1$ if $\varepsilon=0$).
+
+Set $f=[r(r+1)-2\varepsilon]/(a-1)$, $n_0=(5a+4r-2+f)/2$,
+$M_0(x)=\max\{K,J_a(x)+\varepsilon\}$, and
+$T_d=\binom{m-d+1}{2}+(b-1)n_0-K$. By Lemma~\ref{lem:rooted-joint},
+$e(G)\le\binom{c+1}{2}-\lambda+(b-1)n$. Since the slope $b-1$ lies
+strictly between $0$ and $a-1$, comparing at $n_0$ forces
+$\lambda<T_d$. Notice that $T_{d+1}-T_d=-(m-d)<0$, and at $d=2b$ we have
+$T_{2b}=-(b-1)(3a-4b-f)/2<0$ because $f<(r+2)/b<a$. Hence
+$1\le d\le2b-1<a$, and $N=n-c\ge m-(m-d)=d$.
+
+\medskip\noindent\emph{Claim 1. If $r\ge5$, then for any $1\le h\le d$,
+adjoining $h$ vertices of $Y$ to $R$ so that each has degree at least
+$h$ in the induced subgraph yields a graph with a Hamiltonian path.}\ 
+If not, Proposition~\ref{prop:posa-structure} (with $r-d+h$ in place of
+$r$) and \eqref{eq:posa-endpoints} give
+$\lambda\ge\min\{L_{d,h},D_{d,h}\}$, where
+$L_{d,h}=(a-h)(2c+h-3a+1)/2$ and $D_{d,h}=(c-h)(c-h+2)/8$ (if the
+parameter range of Proposition~\ref{prop:posa-structure} is empty, a
+Hamiltonian path exists immediately). Writing $w=d-h\ge0$, the
+differences $L_{d,h}-T_d$ and $D_{d,h}-T_d$ exceed their values at
+$(d,h)=(1,1)$ by
+\[
+ a(h-1)+\frac{w(2a+2r+1-w)}{2}
+ \quad\text{and}\quad
+ \frac{(h-1)(m-w)}{2}+\frac{w(6m-2-3w)}{8},
+\]
+respectively, both nonnegative. At $(1,1)$, we have $D_{1,1}=m(m-2)/8$,
+$8(L_{1,1}-D_{1,1})=r(4a-r-6)>0$, and
+$8(D_{1,1}-T_1)=4a(a-5b)+4r(a-4b)+r^2+6r+8b-4(b-1)f$. Since $a\ge5b$ and
+$(b-1)f<r+2$ (as $(r+2)(rb-1)-(b-1)r(r+1)=rb+r^2-2>0$), this gives
+$8(D_{1,1}-T_1)>4a(a-5b)+4r(a-4b)+r^2+2r+8b-8>0$, contradicting
+$\lambda<T_d$. In particular, taking $h=1$ with a pendant leaf at any
+vertex $x\in R$ shows that $R$ has a Hamiltonian path starting at $x$.
+
+\medskip\noindent\emph{Claim 2. One can choose $d$ vertices of $Y$ in
+sequence so that each has at least $d$ neighbors among $R$ and the
+earlier chosen vertices.}\ 
+Observe first that when $d\ge2$, no $P_d$ in $G[Y]$ has an endpoint
+adjacent to $R$: if $r\ge5$, it would extend via Claim~1 to $P_m$; if
+$r\in\{3,4\}$ and $d\ge r$, then $|R|\le2a$ and Dirac's theorem gives a
+Hamiltonian cycle in $R$, again yielding $P_m$; and if $r\in\{3,4\}$ and
+$2\le d<r$, then $s:=r-d\in\{1,2\}$ and
+$\lambda\le\binom{a+s+1}{2}-\varepsilon-1$, so
+Lemma~\ref{lem:rooted-completion} gives a copy of $H$. (When $d=1$,
+connectedness directly supplies a vertex of $Y$ adjacent to $R$.)
+
+Select vertices greedily: set $C_0=\varnothing$, and at step $j$ pick
+any $y\in Y\setminus C_{j-1}$ with $d_{R\cup C_{j-1}}(y)\ge d$, setting
+$C_j=C_{j-1}\cup\{y\}$. Suppose this stops after $v<d$ steps with set
+$C$, and put $Y'=Y\setminus C$. Note that $d\ge2$, and every vertex of
+$C$ has a neighbor in $R$ (the $j$th chosen vertex has at least $d-j+1$
+neighbors in $R$). Mark each vertex of $Y'$ that has a neighbor in
+$R\cup C$; every component of $G[Y']$ contains a marked vertex.
+
+No marked vertex can be an endpoint of a $P_{b+1}$ or a $P_d$ in
+$G[Y']$. Indeed, for a path $y_1\cdots y_{b+1}$ in $G[Y']$ with $y_1$
+marked, if $y_1$ has a neighbor $p\in R$ we prepend a $b$-vertex path in
+$R$ ending at $p$, while if $y_1$ has a neighbor $w\in C$ we pick
+$x\in N_R(w)$ and prepend a $(b-1)$-vertex path in $R$ ending at $x$
+followed by $w$ (both exist since $\delta(R)\ge a\ge b$); either way we
+get a $P_{2b+1}$ using at most $b$ vertices of $R$. Similarly, a path
+$y_1\cdots y_d$ in $G[Y']$ with $y_1$ marked gives a $P_d$ in $G[Y]$
+with an endpoint adjacent to $R$ (either $y_1\cdots y_d$ directly, or
+$wy_1\cdots y_{d-1}$ for $w\in N_C(y_1)$), contradicting our initial
+observation.
+
+Put $h=\min\{b,d-1\}$ and let $\sigma_h,F_h$ be as in
+Lemma~\ref{lem:uniform-lines}, with $z$ denoting the number of unmarked
+vertices in $Y'$. By Lemma~\ref{lem:marked-root} and the stopping rule,
+$e(R\cup C,Y')+e(Y')\le\sigma_h(|Y|-v)-(d-3/2)z$. Ordering $C$ by the
+core-deletion order from Proposition~\ref{prop:core} gives
+$e(R,C)+e(C)\le v(a-1)$, so
+$e(G)\le F_h(n)-\lambda-(d-1-v)(a-1-\sigma_h)$. By the first inequality
+in \eqref{eq:uniform-lines} and integrality, $\lambda\ge3$ contradicts
+$e(G)>M_0(n)$, and $v=0$ likewise fails because
+$(d-1)(a-1-\sigma_h)\ge4$ (it is $a-2\ge4$ for $d=2$, and
+$\sigma_h\le3b-3\le a-3$ for $d\ge3$). Hence $v\ge1$ and $\lambda\le2$.
+
+We can now tighten to $h=\min\{b-1,d-1\}$. When $d\ge b+1$, no marked
+vertex can be an endpoint of a $P_b$ in $G[Y']$: write such a path as
+$y_1\cdots y_b$. If $y_1$ has a neighbor $w\in C$, prepending a
+$b$-vertex path in $R$ ending at a neighbor of $w$ and then $w$ gives a
+$P_{2b+1}$ with $b$ vertices in $R$. If $y_1$ has a neighbor $p\in R$,
+let $w$ be the first vertex chosen in $C$ (so $d_R(w)\ge d\ge b+1$).
+When $pw\in E(G)$, pick $q\in N_R(w)\setminus\{p\}$ and a $(b-1)$-vertex
+path in $R-p$ ending at $q$, giving $r_1\cdots r_{b-1}wpy_1\cdots y_b$.
+When $pw\notin E(G)$, build a $(b-1)$-vertex path $p=r_1\cdots r_{b-1}$
+in $R$; at least three neighbors of $w$ in $R$ lie outside this path,
+and since $\lambda\le2$, $r_{b-1}$ is adjacent to one of them, say $q$,
+yielding $y_b\cdots y_1r_1\cdots r_{b-1}qw$. Both give a forbidden
+$P_{2b+1}$. Applying the second inequality in \eqref{eq:uniform-lines}
+now yields $e(G)<M_0(n)$, a contradiction. This proves Claim~2.
+
+If $r\ge5$, then $R$ together with the $d$ vertices from Claim~2 has a
+Hamiltonian path by Claim~1, contradicting that $G$ is $H$-free. Assume
+therefore that $r\in\{3,4\}$.
+
+\medskip\noindent\emph{Claim 3. If $r=3$, then $d\le b$ (with $d=1$ when
+$b=2$); if $r=4$, then $b\ge3$ and $d\le\lfloor b/2\rfloor$.}\ 
+Let $U$ be the $d$-set from Claim~2. Since $Q=G[R\cup U]$ has no
+Hamiltonian path, \eqref{eq:budget23}--\eqref{eq:budget41} imply
+$\lambda\ge D_d:=\binom{a+3-d}{2}+r-4$. Set $\Delta_d=D_d-T_d$; since
+$\lambda<T_d$, we must have $\Delta_d<0$. Computing directly,
+\[
+ \Delta_d=\binom{a+3-d}{2}+r-4-\binom{2a+r-d+1}{2}
+ -(b-1)\frac{5a+4r-2+f}{2}+\binom{2a+r-1}{2},
+\]
+which satisfies
+\begin{align}
+ \Delta_{d+1}-\Delta_d &= a+r-2, \label{eq:finite-diff}\\
+ \frac{\partial\Delta_d}{\partial a}
+ &= a-\frac{5b}{2}+d+1+\frac{(b-1)[r(r+1)-2\varepsilon]}{2(a-1)^2}>0,
+ \notag\\
+ \Delta_d\big|_{\varepsilon=1}-\Delta_d\big|_{\varepsilon=0}
+ &= \frac{b-1}{a-1}\ge0. \notag
+\end{align}
+Thus $\Delta_d$ increases in $d$, $a$, and $\varepsilon$. Checking the
+minimum boundaries gives
+\begin{align*}
+ \Delta_{b+1}\big|_{r=3,a=3b,\varepsilon=0} &= \frac{6b^2+b+3}{3b-1}>0,
+ & \Delta_b\big|_{r=3,a=3b+1,\varepsilon=0} &= \frac{b^2+3b+4}{2b}>0,\\
+ \Delta_{(b+1)/2}\big|_{r=4,a=4b,\varepsilon=0} &= \frac{6(b+1)}{4b-1}>0,
+ & \Delta_1\big|_{r=4,a=9,b=2,\varepsilon=0} &= \frac{13}{4}>0,
+\end{align*}
+which by \eqref{eq:finite-diff} yields $d\le b$ for $r=3$ ($d\le b-1$
+when $a\ge3b+1$), $d\le\lfloor b/2\rfloor$ for $r=4$ (since every
+integer $d\ge\lfloor b/2\rfloor+1$ is at least $(b+1)/2$), and excludes
+$r=4,b=2,a\ge9$.
+
+Two all-odd boundary points remain. For $(r,a,b,d)=(3,6,2,2)$,
+Lemma~\ref{lem:rooted-joint} and $\lambda\ge D_d$ give $e(G)\le n+71$,
+which exceeds $M_0(n)$ only at $n=21$, where $B_{15}(21)=94>92$. For
+$(r,a,b,d)=(4,8,2,1)$, they give $e(G)\le n+145$, exceeding $M_0(n)$
+only at $n\in\{27,28\}$, where $B_{20}(n)=175>n+145$. Both are ruled
+out, proving Claim~3.
+
+\medskip\noindent\emph{Claim 4. One can choose $U$ of size $d$ in
+sequence so that each vertex has at least
+$\kappa=\lceil(a+d+2r-5)/2\rceil$ neighbors among $R$ and the earlier
+chosen vertices.}\ 
+Retaining $\lambda\ge D_d$, run the greedy selection with threshold
+$\kappa$ instead of $d$, and suppose it stops after $v<d$ vertices
+$w_1,\ldots,w_v$, forming $C$. Each $w_j$ has at least
+$\kappa-j+1\ge\kappa-d+1\ge1$ neighbors in $R$. Let $Y'=Y\setminus C$,
+$q=|Y'|$, and mark every vertex of $Y'$ adjacent to $R\cup C$; let $z$
+be the number of unmarked vertices. As in Claim~2, every component of
+$G[Y']$ has a marked vertex and no marked vertex is an endpoint of a
+$P_{b+1}$ in $G[Y']$. By Lemma~\ref{lem:marked-root},
+$e(Y')\le(b-1)q/2+z/2$, while the stopping rule gives at most $\kappa-1$
+edges from each marked vertex to $R\cup C$ and none from unmarked
+vertices. Putting $\sigma=\kappa+(b-3)/2$, we have
+$e(R\cup C,Y')+e(Y')\le\sigma q-(\kappa-3/2)z\le\sigma q$. Combining
+this with $e(R,C)+e(C)\le v(a-1)$, $\lambda\ge D_d$, and $v\le d-1$
+yields
+\begin{equation}\label{eq:stopping-line}
+ e(G)\le S_d(n):=\binom{m-d}{2}-D_d+(d-1)(a-1-\sigma)+\sigma(n-m+d).
+\end{equation}
+
+By Claim~3, $0<\sigma<a-1$, so $M_0(n)-S_d(n)$ is minimized at $n_0$.
+Put $g=K-S_d(n_0)$. Because
+$\partial g/\partial\sigma=-(a^2+2ar-a-2\varepsilon+r^2-r)/[2(a-1)]<0$
+and $\sigma\le(a+b+d+2r-7)/2$, substituting into \eqref{eq:stopping-line}
+gives
+\[
+ 4g\ge
+ \begin{cases}
+  Q_3+\dfrac{2\varepsilon(a+b+d-1)}{a-1}, & r=3,\\[6pt]
+  Q_4+\dfrac{2\varepsilon(a+b+d+1)}{a-1}, & r=4,
+ \end{cases}
+\]
+where
+\[
+\begin{aligned}
+ Q_3 &= a^2-a(b+d-1)-6b-2d-10-\frac{12(b+d)}{a-1},\\
+ Q_4 &= a^2-a(b+d+3)-8b-32-\frac{20(b+d+2)}{a-1}.
+\end{aligned}
+\]
+Both $Q_3$ and $Q_4$ decrease in $d$ and increase in $a$:
+\begin{align*}
+ \frac{\partial Q_3}{\partial d} &= -a-2-\frac{12}{a-1}<0, &
+ \frac{\partial Q_3}{\partial a} &= 2a-b-d+1+\frac{12(b+d)}{(a-1)^2}>0,\\
+ \frac{\partial Q_4}{\partial d} &= -a-\frac{20}{a-1}<0, &
+ \frac{\partial Q_4}{\partial a} &= 2a-b-d-3+\frac{20(b+d+2)}{(a-1)^2}>0,
+\end{align*}
+so it suffices to check maximum $d$ and minimum $a$ allowed by Claim~3.
+
+For $r=3$: when $a\ge3b+1$ and $d\le b-1$, we get
+$g\ge(3b-1)(b^2+b-4)/(4b)>0$; when $a=3b$ and $d\le b$, we get
+$g\ge(3b+5)(3b^2-11b+2)/(4(3b-1))>0$ for $b\ge4$; when $(a,b)=(9,3)$
+and $d\le2$, $g\ge11/8$; and when $(a,b,d)=(6,2,1)$, exact values
+$\kappa=4$, $\sigma=7/2$, $n_0=21$ give $g=5/2$. The lone remaining
+point is $(a,b,d,\varepsilon)=(9,3,3,1)$, where $\kappa=\sigma=7$ and
+$g=-7/8$ at $n_0=225/8$; since $M_0(n)-S_d(n)$ equals $g+7(n_0-n)$ for
+$n\le28$ and $g+(n-n_0)$ for $n\ge29$, it vanishes at $n=28,29$ and is
+positive at every other integer, so $S_d(n)\le M_0(n)$ for all integer
+$n$.
+
+For $r=4$: when $b\ge4$, at $a=4b,d=b/2$ we have
+$g\ge(b+1)(20b^2-65b-4)/(2(4b-1))>0$; when $b=3$, we have $d=1$ and
+$g\ge3$ at $a=13$, while at $a=12$ exact values $\kappa=8,f=18/11$ give
+$g=49/11>0$. In every case $e(G)\le M_0(n)$, contradicting $e(G)>M(n)$
+and proving Claim~4.
+
+Finally, let $Q=G[R\cup U]$ for the set $U$ from Claim~4. Since $Q$
+cannot have a Hamiltonian path, and $t=a+r-d$ satisfies $t\ge8$ for
+$r=3$ and $t\ge15$ for $r=4$ by Claim~3,
+Proposition~\ref{prop:posa-structure} provides a subset $W\subseteq V(Q)$
+of size $a+3$ with $e(Q[W])\le1$. Applying
+Theorem~\ref{thm:factor-from-W} then produces a spanning copy of $H$ in
+$Q$, contradicting that $G$ is $H$-free.
+\end{proof}
+
+\subsection{Proof of the connected case}
+
+\begin{theorem}\label{thm:connected}
+Let $H$ be a nonempty linear forest whose components all have order at
+least two, and assume $H$ is not a union of copies of $P_3$. Put
+$a=\nu(H)$ and $m=|H|=2a+O$, where $O$ is the number of odd components,
+and let $\varepsilon=1$ if all components of $H$ are odd and
+$\varepsilon=0$ otherwise. If $G$ is a connected $H$-free graph of order
+$n\ge m$, then $e(G)\le\max\{B_m(n),J_a(n)+\varepsilon\}$. Moreover, if
+$H$ has a $P_2$ component or if $O\ge5$, then $B_m(n)$ may be replaced
+by $\binom{m-1}{2}$.
+\end{theorem}
+\begin{proof}
+We proceed by induction on $O$. The base range $O\le2$ is settled by
+Theorem~\ref{thm:at-most-two-odd}.
+
+Now let $O\ge3$, pick a shortest odd component $P_{2b+1}$ of $H$, and
+set $H'=H-P_{2b+1}$. Note that $H'$ is not a union of copies of $P_3$:
+if $b=1$, then $H$ contains a component other than $P_3$, which remains
+in $H'$; if $b\ge2$, then $H'$ still contains at least two odd
+components of order at least $5$. By the induction hypothesis, the
+connected bound holds for $H'$ at all orders at least $|H'|$, with the
+stronger constant term $\binom{|H'|-1}{2}$ whenever $H'$ has a $P_2$
+component.
+
+Suppose for a contradiction that $G$ violates the theorem, so in
+particular $e(G)>\max\{\binom{m-1}{2},J_a(n)+\varepsilon\}$. By
+Proposition~\ref{prop:core}, $G$ has a connected $a$-core $R$ satisfying
+all properties listed there. Proposition~\ref{prop:no-low-core-path}
+then implies that no copy of $P_{2b+1}$ in $G$ uses at most $b$ vertices
+of $R$, which contradicts Proposition~\ref{prop:exists-low-core-path}.
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:main}}\label{sec:main}
+
+For a nonempty linear forest $L$ without isolated vertices, let
+$\ell(L)$ be the order of its shortest component, and set
+$\varepsilon(L)=1$ if every component of $L$ is odd and
+$\varepsilon(L)=0$ otherwise. Whenever $L$ is neither a matching nor a
+union of copies of $P_3$, Theorem~\ref{thm:connected} gives the
+connected bound
+\begin{equation}\label{eq:connected-bound}
+ e(X)\le\max\bigl\{\Pi(x;|L|,\ell(L)),\,J_{\nu(L)}(x)+\varepsilon(L)\bigr\}
+ \qquad(x=|X|\ge|L|)
+\end{equation}
+for every connected $L$-free graph $X$. Indeed, for $\ell(L)=2$ the
+first term of Theorem~\ref{thm:connected} is $\binom{|L|-1}{2}=\Pi(x;|L|,2)$,
+for $\ell(L)=3$ it is $B_{|L|}(x)=\Pi(x;|L|,3)$, and for $\ell(L)\ge4$
+we verify below that $B_{|L|}(x)\le\Pi(x;|L|,\ell(L))$. For matchings,
+\eqref{eq:connected-bound} also holds by the Erd\H{o}s--Gallai matching
+theorem~\cite{EG}, while unions of copies of $P_3$ are governed by
+\eqref{eq:triples} and single paths satisfy
+$\ex(z,P_k)=\Pi(z;k,k)$ (including $k=2$).
+
+\subsection{The disconnected case}
+
+Write $\mathcal{C}(x)=x(x-1)/2$ for any real $x$. Fix an integer
+$k=2h+\eta\ge2$ with $\eta\in\{0,1\}$, and set $c=k-1$,
+$\lambda=(c-1)/2$, $\mathcal{Q}(m)=m(m+c)/2$, $\rho=c^2/8$, and
+$f_k(z)=\Pi(z;k,k)$. Writing $z=uc+v$ with $0\le v<c$, we have
+$f_k(z)=u\mathcal{C}(c)+\mathcal{C}(v)=\lambda z-v(c-v)/2\le\lambda z$.
+For $x=uc+v$ and $y=u'c+w$, direct subtraction gives
+$f_k(x+y)-f_k(x)-f_k(y)=vw$ when $v+w<c$ and $(c-v)(c-w)$ when
+$v+w\ge c$, so $f_k$ is superadditive (including $f_2\equiv0$).
+
+When $k\ge4$, we have $\mathcal{C}(c)\ge c$ and
+$\mathcal{C}(v)\ge v-1$, whence $f_k(z)\ge z-1\ge\lfloor z/2\rfloor$ for
+all $z\ge1$ (and $f_k(0)=0$), confirming that $B_s(x)\le\Pi(x;s,k)$
+whenever $x\ge s\ge k\ge4$. For $P_m(x):=\Pi(x;m+k,k)$ and $t\ge0$,
+\begin{equation}\label{eq:prefix-id}
+ P_m(m+t)=\mathcal{C}(m)+m\min\{t,c\}+f_k(t),
+\end{equation}
+which immediately yields
+\begin{equation}\label{eq:affine-prefix}
+ P_m(x)\le\lambda x+\mathcal{Q}(m)\quad(x\ge m),\qquad
+ P_m(x)\ge\lambda x+\mathcal{Q}(m)-\rho\quad(x\ge m+c),
+\end{equation}
+with slack $(c-t)(m+t/2)$ in the first inequality for $0\le t\le c$.
+Together with the superadditivity of $f_k$, \eqref{eq:prefix-id} also
+implies $P_m(w)+f_k(z)\le P_m(w+z)$ for all $w\ge m$ and $z\ge0$.
+
+Yuan and Zhang~\cite[Lemma~2.3]{YZ} used superadditivity and a
+component-allocation argument for forests with at most one odd
+component. The following theorem extends this reduction to arbitrary
+linear forests, accommodating $P_2$ components and $tP_3$ subforests.
+
+\begin{theorem}\label{thm:disconnected-reduction}
+Let $F$ be a nonempty linear forest without isolated vertices. Assume
+that \eqref{eq:connected-bound} holds for every subforest $L$ of $F$
+formed by whole components, except possibly when $L$ is a matching or a
+union of copies of $P_3$. Combined with the exact formulas for
+matchings, unions of copies of $P_3$, and single paths, this implies
+\eqref{eq:formula} whenever $F$ is not a union of copies of $P_3$, and
+\eqref{eq:triples} when $F$ is a union of copies of $P_3$.
+\end{theorem}
+\begin{proof}
+We assume $n\ge|F|$ (the lower bounds and $n<|F|$ were settled in
+Section~\ref{sec:intro}) and induct on the number of components of $F$.
+The theorem is already known when $F$ is a single path, a matching, or a
+union of copies of $P_3$.
+
+Let $P_k$ be a shortest component of $F$, and write $F=F^-\cup P_k$. Put
+$m=|F|$, $a=\nu(F)$, and $h=\lfloor k/2\rfloor$.
+
+Suppose first that $G$ is $F^-$-free. By induction, $e(G)$ satisfies the
+formula for $F^-$. Every prefix term of $F^-$ is also a prefix term of
+$F$. When $F^-$ is not a union of copies of $P_3$, its join term is
+strictly smaller than that of $F$, since for $n\ge m\ge2a$,
+\[
+ J_a(n)+\varepsilon(F)-J_{a-h}(n)-\varepsilon(F^-)
+ =h\left(n-a+\frac{h+1}{2}\right)+\varepsilon(F)-\varepsilon(F^-)>0.
+\]
+If $F^-=tP_3$, then because $F$ is not a union of copies of $P_3$ and
+$P_k$ is a shortest component, we must have $k=2$. The first branch
+$B_{3t}(n)$ of \eqref{eq:triples} is the prefix term for the last $P_3$
+component of $F$, while the second branch is at most $J_{t+1}(n)$,
+because
+\[
+ J_{t+1}(n)-\left[(t-1)n-\mathcal{C}(t)
+ +\left\lfloor\frac{n-t+1}{2}\right\rfloor\right]
+ =n-t-\left\lfloor\frac{n-t+1}{2}\right\rfloor\ge0
+\]
+(including $t=1$). Thus $e(G)$ satisfies \eqref{eq:formula} whenever $G$
+is $F^-$-free.
+
+Now fix a copy of $F^-$ in $G$. Let $X_1,\ldots,X_s$ be the connected
+components of $G$ meeting this copy, and let $W_i$ be the union of those
+components of $F^-$ embedded in $X_i$. Then each $X_i$ is
+$(W_i\cup P_k)$-free (otherwise replacing the embedding in $X_i$ would
+produce $F$), and the union $U$ of all remaining components of $G$ is
+$P_k$-free. Set $a_i=\nu(W_i)$, $m_i=|W_i|$, and $x_i=|X_i|$. Since
+every component of $W_i$ has order at least $k$, we have $a_i\ge h$,
+$2a_i\le m_i\le3a_i$, and $x_i\ge m_i$.
+
+If $s=1$, then $W_1\cup P_k=F$ is neither a matching nor a union of
+copies of $P_3$. Using \eqref{eq:connected-bound} when $x_1\ge m$ and
+the complete-graph bound when $x_1<m$, we obtain
+$e(X_1)\le\max\{P_{m_1}(x_1),J_a(x_1)+\varepsilon(F)\}$. Adding
+$e(U)\le f_k(|U|)$ is absorbed by $P_{m_1}$ via \eqref{eq:prefix-id} and
+by $J_a+\varepsilon(F)$ because its slope $a-1$ is at least $\lambda$.
+
+Assume henceforth that $s\ge2$. We claim that for every $1\le i\le s$,
+\begin{equation}\label{eq:local-affine}
+ e(X_i)\le\max\bigl\{\lambda x_i+\mathcal{Q}(m_i),\,
+ (a_i+\lambda)x_i-\mathcal{C}(a_i+h)+1\bigr\}.
+\end{equation}
+If $W_i\cup P_k$ is not a union of copies of $P_3$, this follows from
+the complete-graph bound and \eqref{eq:affine-prefix} when
+$x_i<m_i+k$, and from \eqref{eq:connected-bound} (or the matching bound)
+when $x_i\ge m_i+k$, since $a_i+h-1\le a_i+\lambda$ and
+$\varepsilon(W_i\cup P_k)\le1$. If $W_i\cup P_k=(t+1)P_3$ (so $k=3$,
+$a_i=t$, $m_i=3t$), write $R(y)=y-2\lfloor y/2\rfloor\in\{0,1\}$; the
+two branches of \eqref{eq:triples} for $(t+1)P_3$ rewrite as
+\begin{align*}
+ \mathcal{C}(3t+2)+\left\lfloor\frac{x-3t-2}{2}\right\rfloor
+ &=\frac{1}{2}x+\mathcal{Q}(3t)-\frac{1}{2}R(x-3t),\\
+ tx-\mathcal{C}(t+1)+\left\lfloor\frac{x-t}{2}\right\rfloor
+ &=\left(t+\frac{1}{2}\right)x-\mathcal{C}(t+1)-\frac{t}{2}
+  -\frac{1}{2}R(x-t),
+\end{align*}
+both at most the right-hand side of \eqref{eq:local-affine} (and for
+$x\in\{3t,3t+1,3t+2\}$ the complete-graph bound suffices).
+
+Put $A=\sum_i a_i=a-h$, $M=\sum_i m_i=m-k$, and $z=|U|$. When $k$ is
+odd, we have $A\ge2h\ge4$ if $k\ge5$, and $A\ge3$ if $k=3$ (as some
+$W_i$ contains a path longer than $P_3$ and at least one other $W_i$ is
+nonempty). Also $n\ge m=M+c+1$. We claim that
+\begin{align}
+ &\sum_{i=1}^s\max\bigl\{\lambda x_i+\mathcal{Q}(m_i),\,
+  (a_i+\lambda)x_i-\mathcal{C}(a_i+h)+1\bigr\}+\lambda z
+  \notag\\
+ &\hspace{35mm}<\max\bigl\{P_M(n),\,J_{A+h}(n)\bigr\}.
+ \label{eq:sum-claim}
+\end{align}
+To prove \eqref{eq:sum-claim}, put $S=\sum_i\mathcal{Q}(m_i)$,
+$E=n-M\ge c+1>0$, and
+$H_i=\mathcal{Q}(m_i)+\mathcal{C}(a_i+h)-1-a_im_i$. Since
+$\mathcal{Q}(x)-a_ix$ increases for $x\ge2a_i$, we have
+$H_i\ge a_ic+\mathcal{C}(a_i+h)-1>0$. Writing $e_i=x_i-m_i\ge0$ and
+$\phi_i(e)=\max\{0,a_ie-H_i\}$, direct algebra gives
+\begin{align}
+ &\max\bigl\{\lambda x_i+\mathcal{Q}(m_i),\,
+  (a_i+\lambda)x_i-\mathcal{C}(a_i+h)+1\bigr\} \notag\\
+ &\hspace{28mm}=\lambda x_i+\mathcal{Q}(m_i)+\phi_i(e_i).
+ \label{eq:phi-identity}
+\end{align}
+Because $\sum_i e_i=E-z\le E$ and each $\phi_i$ is convex with
+$\phi_i(0)=0$, we have $\phi_i(e_i)\le(e_i/E)\phi_i(E)$ and hence
+$\sum_i\phi_i(e_i)\le\max_i\phi_i(E)$. The left-hand side of
+\eqref{eq:sum-claim} is therefore at most
+$\lambda n+S+\max_i\phi_i(E)$.
+
+If $\max_i\phi_i(E)=0$, then \eqref{eq:affine-prefix} gives
+$P_M(n)-\lambda n\ge\mathcal{Q}(M)-\rho$, whereas
+$\mathcal{Q}(M)-S=\sum_{i<j}m_im_j\ge4h^2>\rho$, proving
+\eqref{eq:sum-claim}.
+
+Otherwise fix an index $i$ with $\phi_i(E)>0$, and write $\alpha=a_i$,
+$p=A-\alpha$, $\mu=m_i$, $\beta=M-\mu$, $r_0=\alpha+p-\eta/2$,
+$D=\mathcal{C}(\alpha+p+h)$, and $D_i=\mathcal{C}(\alpha+h)-1$. By the
+superadditivity of $\mathcal{Q}$,
+\[
+ S+\alpha E-H_i=\alpha n+S-\mathcal{Q}(\mu)-\alpha\beta-D_i
+ \le\alpha n+\mathcal{Q}(\beta)-\alpha\beta-D_i=:T(n).
+\]
+Set $G_P(n)=\mathcal{Q}(\mu+\beta)-\rho-T(n)$ (a lower bound for
+$P_M(n)-\lambda n-T(n)$) and $G_J(n)=r_0n-D-T(n)=J_{A+h}(n)-\lambda n-T(n)$
+(since $A+h-1-\lambda=r_0$). Taking the positive linear combination
+with coefficients $r_0-\alpha=p-\eta/2>0$ and $\alpha>0$ eliminates $n$:
+\[
+ X:=(r_0-\alpha)G_P(n)+\alpha G_J(n)
+ =(r_0-\alpha)[\mathcal{Q}(\mu+\beta)-\rho]-r_0\mathcal{Q}(\beta)
+ +\alpha(r_0\beta-D)+r_0D_i.
+\]
+It suffices to show $X>0$. Over the rectangle $2\alpha\le\mu\le3\alpha$,
+$2p\le\beta\le3p$ (with $\alpha,p\ge h$), we have
+$\partial X/\partial\mu=(r_0-\alpha)(\mu+\beta+c/2)>0$ and
+$\partial^2 X/\partial\beta^2=-\alpha<0$, so $X$ is minimized at
+$\mu=2\alpha$ and $\beta\in\{2p,3p\}$. Denoting the value at $\beta=jp$
+by $X_j$ ($j\in\{2,3\}$) and substituting $c=2h+\eta-1$, $\rho=c^2/8$,
+$D$, and $D_i$, we obtain
+\begin{align}
+ 8X_2\big|_{\eta=0} &= 28\alpha p(\alpha+p)-8\alpha-9p, \notag\\
+ 8X_2\big|_{\eta=1} &= 28\alpha p(\alpha+p)-10\alpha^2-12\alpha h
+  -24\alpha p-6\alpha-4hp+2h-8p+4, \label{eq:X2-odd}\\
+ 8(X_3-X_2) &= 4\alpha p(2\alpha-2h+p+1-4\eta). \label{eq:endpoint-diff}
+\end{align}
+For $\eta=0$, \eqref{eq:endpoint-diff} is nonnegative (as $\alpha\ge h$)
+and $8X_2\ge56\alpha p-8\alpha-9p\ge39$, so $X_2,X_3>0$. For $\eta=1$,
+we have $\alpha+p=A\ge3$ and $8(X_3-X_2)\ge-8\alpha p$. In
+\eqref{eq:X2-odd}, bounding $10\alpha^2\le10\alpha^2p$,
+$12\alpha h\le12\alpha p$, $4hp\le4\alpha p$, $6\alpha+8p\le14\alpha p$,
+and $2h+4\ge6$ (and subtracting $8\alpha p$ to cover $j=3$ as well)
+gives $8X_j\ge\alpha p(18\alpha+28p-62)+6>0$ for $j\in\{2,3\}$, since
+$\alpha,p\ge1$ and $\alpha+p\ge3$ imply $18\alpha+28p-62\ge2$. Thus
+$X>0$, establishing \eqref{eq:sum-claim}.
+
+Finally, combining \eqref{eq:local-affine}, $e(U)\le f_k(z)\le\lambda z$,
+and \eqref{eq:sum-claim} gives
+$e(G)<\max\{\Pi(n;m,k),J_a(n)\}\le\max\{\Pi(n;m,k),J_a(n)+\varepsilon(F)\}$,
+closing the induction.
+\end{proof}
+
+\begin{proof}[Completion of the proof of Theorem~\ref{thm:main}]
+When $H=tP_3$, \eqref{eq:triples} is the theorem of Campos and
+Lopes~\cite{CL} and Yuan and Zhang~\cite{YZtriples}. Otherwise,
+Theorem~\ref{thm:connected} supplies \eqref{eq:connected-bound} for all
+non-exceptional connected subforests, and
+Theorem~\ref{thm:disconnected-reduction} then yields the upper bound in
+\eqref{eq:formula} for all $n\ge m$. Matching lower-bound constructions
+were verified in Section~\ref{sec:intro}, and for $0\le n<m$ the
+complete graph $K_n$ is trivially $H$-free.
+\end{proof}
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Data availability}
+No data were used for the research described in this article.
+
+\section*{Declaration on the use of AI}
+The authors used ChatGPT (OpenAI) to assist in discussing proof strategies, checking proofs, and improving exposition. The authors reviewed and verified the mathematical content and take full responsibility for the manuscript.
+
+\small
+\begin{thebibliography}{99}
+\setlength{\itemsep}{-1pt}
+
+\bibitem{BabuDiwan}
+Ch.~S. Babu and A.~A. Diwan,
+\emph{Degree conditions for forests in graphs},
+Discrete Mathematics \textbf{301} (2005), nos.~2--3, 228--231.
+
+\bibitem{BGLS}
+P.~N. Balister, E. Gy\H{o}ri, J. Lehel and R.~H. Schelp,
+\emph{Connected graphs without long paths},
+Discrete Mathematics \textbf{308} (2008), no.~19, 4487--4494.
+
+\bibitem{BielakKieliszek}
+H. Bielak and S. Kieliszek,
+\emph{The Tur\'an number of the graph $2P_5$},
+Discussiones Mathematicae Graph Theory \textbf{36} (2016), 683--694.
+
+\bibitem{BondyChvatal}
+J.~A. Bondy and V. Chv\'atal,
+\emph{A method in graph theory},
+Discrete Mathematics \textbf{15} (1976), 111--135.
+
+\bibitem{BushawKettle}
+N. Bushaw and N. Kettle,
+\emph{Tur\'an numbers of multiple paths and equibipartite forests},
+Combinatorics, Probability and Computing \textbf{20} (2011), no.~6,
+837--853.
+
+\bibitem{CL}
+V. Campos and R. Lopes,
+\emph{A proof for a conjecture of Gorgol},
+Discrete Applied Mathematics \textbf{245} (2018), 202--207.
+
+\bibitem{ChenZhang}
+M.-Z. Chen and X.-D. Zhang,
+\emph{Erd\H{o}s--Gallai stability theorem for linear forests},
+Discrete Mathematics \textbf{342} (2019), no.~3, 904--916.
+
+\bibitem{CTW}
+Y. Chen, F. Tian and B. Wei,
+\emph{Degree sums and path-factors in graphs},
+Graphs and Combinatorics \textbf{17} (2001), no.~1, 61--71.
+
+\bibitem{CYYZ}
+Y.-H. Chen, J.-B. Yang, L.-T. Yuan and P. Zhang,
+\emph{Exact generalized Tur\'an numbers for even linear forests},
+Discrete Mathematics \textbf{347} (2024), no.~7, Article~113974.
+
+\bibitem{ChibaTsugaki}
+S. Chiba and M. Tsugaki,
+\emph{A degree sum condition for the existence of a path-factor},
+Ars Combinatoria \textbf{113} (2014), 441--450.
+
+\bibitem{DHZ}
+J. Deng, J. Hou and Q. Zeng,
+\emph{The Tur\'an number of three disjoint paths},
+Discussiones Mathematicae Graph Theory \textbf{44} (2024), no.~4,
+1513--1537.
+
+\bibitem{Diestel}
+R. Diestel,
+\emph{Graph Theory}, 6th ed.,
+Graduate Texts in Mathematics 173, Springer, 2025.
+
+\bibitem{Dirac}
+G.~A. Dirac,
+\emph{Some theorems on abstract graphs},
+Proceedings of the London Mathematical Society (3) \textbf{2} (1952),
+69--81.
+
+\bibitem{DNYZ}
+M. Dong, B. Ning, L.-T. Yuan and X.-D. Zhang,
+\emph{Exact Tur\'an numbers of two vertex-disjoint paths},
+arXiv preprint arXiv:2511.01509v1, 2025.
+
+\bibitem{EO}
+Y. Egawa and K. Ota,
+\emph{Vertex-disjoint paths in graphs},
+Ars Combinatoria \textbf{61} (2001), 23--31.
+
+\bibitem{EnomotoOta}
+H. Enomoto and K. Ota,
+\emph{Partitions of a graph into paths with prescribed endvertices and lengths},
+Journal of Graph Theory \textbf{34} (2000), no.~2, 163--169.
+
+\bibitem{EG}
+P. Erd\H{o}s and T. Gallai,
+\emph{On maximal paths and circuits of graphs},
+Acta Mathematica Academiae Scientiarum Hungaricae \textbf{10} (1959),
+337--356.
+
+\bibitem{FangYou}
+X. Fang and L. You,
+\emph{The Tur\'an number of $P_9\cup P_7$},
+Computational and Applied Mathematics \textbf{43} (2024), no.~5,
+Article~291.
+
+\bibitem{FS}
+R.~J. Faudree and R.~H. Schelp,
+\emph{Path Ramsey numbers in multicolorings},
+Journal of Combinatorial Theory, Series B \textbf{19} (1975), no.~2,
+150--160.
+
+\bibitem{FengHu}
+L. Feng and Y. Hu,
+\emph{The Tur\'an number of the graph $3P_5$},
+Filomat \textbf{34} (2020), no.~10, 3395--3410.
+
+\bibitem{FKL}
+Z. F\"uredi, A. Kostochka and R. Luo,
+\emph{A stability version for a theorem of Erd\H{o}s on nonhamiltonian graphs},
+Discrete Mathematics \textbf{340} (2017), no.~11, 2688--2690.
+
+\bibitem{Johansson}
+R. Johansson,
+\emph{An El-Zah\'ar type condition ensuring path-factors},
+Journal of Graph Theory \textbf{28} (1998), no.~1, 39--42.
+
+\bibitem{Kawarabayashi}
+K. Kawarabayashi,
+\emph{Graph partition into paths containing specified vertices},
+Discrete Mathematics \textbf{248} (2002), 271--277.
+
+\bibitem{Kopylov}
+G.~N. Kopylov,
+\emph{On maximal paths and cycles in a graph},
+Doklady Akademii Nauk SSSR \textbf{234} (1977), no.~1, 19--21.
+
+\bibitem{LMY}
+J. Lai, T. Ma and W. Yan,
+\emph{The Tur\'an number of vertex disjoint paths of lengths one and two},
+Discrete Mathematics \textbf{349} (2026), no.~2, Article~114764.
+
+\bibitem{LanQinShi}
+Y. Lan, Z. Qin and Y. Shi,
+\emph{The Tur\'an number of $2P_7$},
+Discussiones Mathematicae Graph Theory \textbf{39} (2019), no.~4,
+805--814.
+
+\bibitem{LLP}
+B. Lidick\'y, H. Liu and C. Palmer,
+\emph{On the Tur\'an number of forests},
+Electronic Journal of Combinatorics \textbf{20} (2013), no.~2,
+Paper~P62, 13~pp.
+
+\bibitem{MO}
+C. Magnant and K. Ozeki,
+\emph{Partitioning graphs into paths or cycles of prescribed lengths},
+Journal of Combinatorics \textbf{3} (2012), no.~2, 135--161.
+
+\bibitem{Posa}
+L. P\'osa,
+\emph{A theorem concerning Hamilton lines},
+Magyar Tudom\'anyos Akad\'emia Matematikai Kutat\'o Int\'ezet\'enek
+K\"ozlem\'enyei \textbf{7} (1962), nos.~1--2, 225--226.
+
+\bibitem{YZtriples}
+L.-T. Yuan and X.-D. Zhang,
+\emph{The Tur\'an number of disjoint copies of paths},
+Discrete Mathematics \textbf{340} (2017), no.~2, 132--139.
+
+\bibitem{YZ}
+L.-T. Yuan and X.-D. Zhang,
+\emph{Tur\'an numbers for disjoint paths},
+Journal of Graph Theory \textbf{98} (2021), no.~3, 499--524.
+
+\bibitem{ZZL}
+H. Zhang, X. Zhao and M. Lu,
+\emph{Tur\'an type problems for a fixed graph and a linear forest},
+European Journal of Combinatorics \textbf{137} (2026), Article~104412.
+
+\bibitem{ZhangWang}
+L.-P. Zhang and L. Wang,
+\emph{The Tur\'an numbers of special forests},
+Graphs and Combinatorics \textbf{38} (2022), no.~3, Article~84.
+
+\bibitem{ZhuChen}
+X. Zhu and Y. Chen,
+\emph{Generalized Tur\'an number for linear forests},
+Discrete Mathematics \textbf{345} (2022), no.~10, Article~112997.
+
+\end{thebibliography}
+\end{document}
